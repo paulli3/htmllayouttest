@@ -1,4 +1,4 @@
-set gitBinpath=D:\Program Files (x86)\Git\bin;
+set gitBinpath=D:\Program Files (x86)\Git\bin
 set workdir=D:\code\c\htmllayouttest
 chdir %workdir%
 d:
