@@ -7,4 +7,4 @@ set path=%path%%gitBinpath%;
 
 git add *
 git commit -m "upload normal" 
-git push origin master
+git push https://github.com/paulli3/htmllayouttest.git
