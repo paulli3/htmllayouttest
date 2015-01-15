@@ -5,9 +5,15 @@ baseInclude="$(baseDir)\include"
 baseLib=$(baseDir)\lib
 includeDir=F:\program\Cygwin\usr\include
 sourceDir=D:/code/c/htmllayouttest/src
+DEBUG=/GA /MD /Ox /Ot /W3 /c  /EHsc #/link  /INCREMENTAL:no /NODEFAULTLIB:libcmt.lib  
 
 #$@         当前target的名称
-main:main.a
+main:main.exe
 
-main.a:
-	$(cc) $(sourceDir)/main.cpp  /GA /MD /Ox /Ot /W3  /EHsc /link /INCREMENTAL:no /NODEFAULTLIB:libcmt.lib  
+main.exe:main.obj
+	$(cc) lib/main.obj /Fe:"eee" user32.lib gdi32.lib lib/HTMLayout.lib 
+
+main.obj:
+	$(cc) $(sourceDir)/main.cpp  $(DEBUG) /Fo:"lib/main.obj" /I"include" 
+#	$(cc) lib/*.obj /Fetest.exe
+
