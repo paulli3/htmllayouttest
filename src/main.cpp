@@ -1,4 +1,5 @@
 #include "stdio.h"
+
 #include "htmlayout.h"
 #include "windows.h"
 
@@ -54,12 +55,61 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,PSTR szCmdLine,
 
 }
 
+void OnButtonClick(HELEMENT button);
+struct DOMEventsHandlerType: htmlayout::event_handler
+{
+      DOMEventsHandlerType(): event_handler(0xFFFFFFFF) {}
+      virtual BOOL handle_event (HELEMENT he, BEHAVIOR_EVENT_PARAMS& params ) 
+      { 
+        switch( params.cmd )
+        {
+        case BUTTON_CLICK:              OnButtonClick(params.heTarget); break;// click on button
+        case BUTTON_PRESS:              break;// mouse down or key down in button
+        case BUTTON_STATE_CHANGED:      break;
+        case EDIT_VALUE_CHANGING:       break;// before text change
+        case EDIT_VALUE_CHANGED:        break;//after text change
+        case SELECT_SELECTION_CHANGED:  break;// selection in <select> changed
+        case SELECT_STATE_CHANGED:      break;// node in select expanded/collapsed, heTarget is the node
+        case POPUP_REQUEST: 
+                                        break;// request to show popup just received, 
+                                              //     here DOM of popup element can be modifed.
+        case POPUP_READY:               break;// popup element has been measured and ready to be shown on screen,
+                                              //     here you can use functions like ScrollToView.
+        case POPUP_DISMISSED:           break;// popup element is closed,
+                                              //     here DOM of popup element can be modifed again - e.g. some items can be removed
+                                              //     to free memory.
+        case MENU_ITEM_ACTIVE:                // menu item activated by mouse hover or by keyboard
+             break;
+        case MENU_ITEM_CLICK:                 // menu item click 
+             break;
+
+
+            // "grey" event codes  - notfications from behaviors from this SDK 
+        case HYPERLINK_CLICK:           break;// hyperlink click
+        case TABLE_HEADER_CLICK:        break;// click on some cell in table header, 
+                                              //     target = the cell, 
+                                              //     reason = index of the cell (column number, 0..n)
+        case TABLE_ROW_CLICK:           break;// click on data row in the table, target is the row
+                                              //     target = the row, 
+                                              //     reason = index of the row (fixed_rows..n)
+        case TABLE_ROW_DBL_CLICK:       break;// mouse dbl click on data row in the table, target is the row
+                                              //     target = the row, 
+                                              //     reason = index of the row (fixed_rows..n)
+
+        case ELEMENT_COLLAPSED:         break;// element was collapsed, so far only behavior:tabs is sending these two to the panels
+        case ELEMENT_EXPANDED:          break;// element was expanded,
+
+        }
+        return FALSE; 
+      }
+ 
+} DOMEventsHandler;
  // HTMLayout specific notification handler.
 LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LPVOID vParam)
 {
   // all HTMLayout notification are comming here.
   NMHDR*  phdr = (NMHDR*)lParam;
-
+  //MessageBox(NULL,"1","1",MB_OK);
   switch(phdr->code)
   {
       case HLN_CREATE_CONTROL:    break; //return OnCreateControl((LPNMHL_CREATE_CONTROL) lParam);
@@ -73,9 +123,17 @@ LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam,
   return 0;
 }
 
+void OnButtonClick(HELEMENT button)
+{
+  //htmlayout::debug_output_console dc;
+  //dc.printf("BUTTON_CLICK: %S\n", id_or_name_or_text(button).c_str() );
+	::MessageBoxW(NULL,L"My name is demo1.",L"Demo",0);
+}
+
 LRESULT OnAttachBehavior(LPNMHL_ATTACH_BEHAVIOR lpab )
 {
-    // attach custom behaviors
+    // attach custom behaviors GetHtmlResource
+    //MessageBox(NULL,lpab->behaviorName,"1",MB_OK);
     htmlayout::event_handler *pb = htmlayout::behavior::find(lpab->behaviorName, lpab->element);
     if(pb) 
     {
@@ -120,8 +178,8 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         // In this particular case we are using callback function to receive and
         // and handle notification. Don't bother the desktop window (parent of this window)
         // by our notfications.
-        HTMLayoutSetCallback(hwnd,&HTMLayoutNotifyHandler,0);
-
+        HTMLayoutSetCallback(hwnd,&HTMLayoutNotifyHandler,0);//通知函数
+        htmlayout::attach_event_handler(hwnd, &DOMEventsHandler);//事件处理函数
         PBYTE pb; DWORD cb;
         if(GetHtmlResource("DEFAULT",pb,cb))
           HTMLayoutLoadHtml(hwnd,pb,cb);
@@ -133,3 +191,27 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
      }
      return DefWindowProc (hwnd, message, wParam, lParam) ;
 }
+
+HINSTANCE hInst;
+BOOL GetHtmlResource(LPCSTR pszName, /*out*/PBYTE& pb, /*out*/DWORD& cb)
+{
+  // Find specified resource and check if ok
+
+  HRSRC hrsrc = ::FindResource(hInst, a2t(pszName), MAKEINTRESOURCE(RT_HTML));
+
+  if(!hrsrc) 
+    return false;
+
+  // Load specified resource and check if ok
+  
+  HGLOBAL hgres = ::LoadResource(hInst, hrsrc);
+  if(!hgres) return FALSE;
+
+  // Retrieve resource data and check if ok
+
+  pb = (PBYTE)::LockResource(hgres); if (!pb) return FALSE;
+  cb = ::SizeofResource(hInst, hrsrc); if (!cb) return FALSE;
+
+  return TRUE;
+}
+
