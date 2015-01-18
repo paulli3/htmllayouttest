@@ -125,9 +125,15 @@ LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam,
 
 void OnButtonClick(HELEMENT button)
 {
-  //htmlayout::debug_output_console dc;
-  //dc.printf("BUTTON_CLICK: %S\n", id_or_name_or_text(button).c_str() );
-	::MessageBoxW(NULL,L"My name is demo1.",L"Demo",0);
+  htmlayout::debug_output_console dc;
+  dc.printf("BUTTON_CLICK: %d\n", htmlayout::dom::element(button).get_attribute_count() );
+  dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(0) );
+  dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(1) );
+  dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(2) );
+  dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(3) );
+
+	//::MessageBoxW(NULL,L"My name is demo1.",L"Demo",0);
+    //button->get_attribute_name();
 }
 
 LRESULT OnAttachBehavior(LPNMHL_ATTACH_BEHAVIOR lpab )
