@@ -21,7 +21,10 @@ goto MAIN
 git add *
 set /p CommonStr="please input the Notes:"
 git commit -m "normal %date% %time% %CommonStr%"
-git %gitcmd% %gitUrl%
+
+echo set pws=WScript.CreateObject("WScript.Shell")>%temp%\pws.vbs
+echo pws.SendKeys "371438778@qq.com{ENTER}">>%temp%\pws.vbs
+wscript %temp%\pws.vbs & git %gitcmd% %gitUrl%
 goto END
 
 :pull
@@ -42,7 +45,6 @@ goto END
 chdir %workdir%
 %workdir:~0,2%
 set path=%path%;%gitBinpath%;
-echo %gitcmd%
 goto %gitcmd%
 
 
