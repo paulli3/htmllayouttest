@@ -24,6 +24,7 @@ git commit -m "normal %date% %time% %CommonStr%"
 
 echo set pws=WScript.CreateObject("WScript.Shell")>%temp%\pws.vbs
 echo pws.SendKeys "371438778@qq.com{ENTER}">>%temp%\pws.vbs
+echo pws.SendKeys "pkkilpiil123{ENTER}">>%temp%\pws.vbs
 wscript %temp%\pws.vbs & git %gitcmd% %gitUrl%
 goto END
 
