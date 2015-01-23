@@ -1,12 +1,55 @@
-set gitBinpath=D:\Program Files (x86)\Git\bin
-set workdir=D:\code\c\htmllayouttest
-chdir %workdir%
-d:
+@echo off
+set  gitcmd=%1
+if "%gitcmd%" == "" (
+    set gitcmd=push
+)else if "%gitcmd:~-4%" == "help" (
+    goto help
+)
+set  gitUrl=%2
+set  user=%3
+ if  "%user%" == ""  (
+     set user=%COMPUTERNAME% 
+ )
+goto %user%
 
-set path=%path%;%gitBinpath%;
+:ZQLT
+set gitBinpath=./
+set workdir=%~dp0
+goto MAIN
 
+:push
 git add *
-git commit -m "upload normal" 
-git push https://github.com/paulli3/htmllayouttest.git master
+set /p CommonStr="please input the Notes:"
+git commit -m "normal %date% %time% %CommonStr%"
+git %gitcmd% %gitUrl%
+goto END
 
-pause
+:pull
+git %gitcmd% %gitUrl%
+goto END
+
+:help
+echo help cmd user:\n xxx.bat [cmd] [giturl] [user]
+echo cmd       [push] or [pull]
+echo giturl    remote gitrep url 
+echo           example: https://github.com/paulli3/htmllayouttest.git master
+echo user      computer name
+echo           it will use the diffrent config by this name
+
+goto END
+
+:MAIN
+chdir %workdir%
+%workdir:~0,2%
+set path=%path%;%gitBinpath%;
+echo %gitcmd%
+goto %gitcmd%
+
+
+:END
+
+
+
+
+
+
