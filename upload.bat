@@ -1,12 +1,12 @@
 @echo off
-set  gitcmd=%1
+set  gitcmd=%~1
 if "%gitcmd%" == "" (
     set gitcmd=push
 )else if "%gitcmd:~-4%" == "help" (
     goto help
 )
-set  gitUrl=%2
-set  user=%3
+set  gitUrl=%~2
+set  user=%~3
  if  "%user%" == ""  (
      set user=%COMPUTERNAME% 
  )
@@ -25,6 +25,7 @@ git commit -m "normal %date% %time% %CommonStr%"
 ::echo set pws=WScript.CreateObject("WScript.Shell")>%temp%\pws.vbs
 ::echo pws.SendKeys "xxxx{ENTER}">>%temp%\pws.vbs
 ::echo pws.SendKeys "xxxx{ENTER}">>%temp%\pws.vbs
+
 wscript pws.vbs & git %gitcmd% %gitUrl%
 goto END
 
