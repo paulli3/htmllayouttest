@@ -17,6 +17,11 @@ set gitBinpath=./
 set workdir=%~dp0
 goto MAIN
 
+:PAULLI_S
+set gitBinpath=D:\Program Files (x86)\Git\bin
+set workdir=%~dp0
+goto MAIN
+
 :push
 git add *
 set /p CommonStr="please input the Notes:"
