@@ -1,8 +1,9 @@
 #include "stdio.h"
-
 #include "htmlayout.h"
 #include "windows.h"
 
+#include "Include_behavior.cpp"
+#include "Include_const.h"
 
 LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM) ;
 BOOL        GetHtmlResource(LPCSTR pszName, /*out*/PBYTE& pb, /*out*/DWORD& cb);
@@ -38,8 +39,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,PSTR szCmdLine,
                           WS_OVERLAPPEDWINDOW,        // window style
                           CW_USEDEFAULT,              // initial x position
                           CW_USEDEFAULT,              // initial y position
-                          100,              // initial x size   CW_USEDEFAULT
-                          100,              // initial y size   CW_USEDEFAULT
+                          800,              // initial x size   CW_USEDEFAULT
+                          500,              // initial y size   CW_USEDEFAULT
                           NULL,                       // parent window handle
                           NULL,                       // window menu handle
                           hInstance,                  // program instance handle
@@ -100,6 +101,8 @@ struct DOMEventsHandlerType: htmlayout::event_handler
         case ELEMENT_EXPANDED:          break;// element was expanded,
 
         }
+        htmlayout::debug_output_console dc;
+        dc.printf("tagName=%s",$D(he).get_attribute_name(1));
         return FALSE; 
       }
  
@@ -117,7 +120,11 @@ LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam,
       case HLN_DESTROY_CONTROL:   break; //return OnDestroyControl((LPNMHL_DESTROY_CONTROL) lParam);
       case HLN_LOAD_DATA:         break; //return OnLoadData((LPNMHL_LOAD_DATA) lParam);
       case HLN_DATA_LOADED:       break; //return OnDataLoaded((LPNMHL_DATA_LOADED)lParam);
-      case HLN_DOCUMENT_COMPLETE: break; //return OnDocumentComplete();
+      case HLN_DOCUMENT_COMPLETE: 
+                                  //MessageBox(NULL,"1","1",MB_OK);
+
+                                 break; //return OnDocumentComplete();
+
       case HLN_ATTACH_BEHAVIOR:   return OnAttachBehavior((LPNMHL_ATTACH_BEHAVIOR)lParam );
   }
   return 0;
@@ -126,7 +133,7 @@ LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam,
 void OnButtonClick(HELEMENT button)
 {
   htmlayout::debug_output_console dc;
-  dc.printf("BUTTON_CLICK: %d\n", htmlayout::dom::element(button).get_attribute_count() );
+  dc.printf("BUTTON_CLICK: %d\n", $D(button).get_attribute_count() );
   dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(0) );
   dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(1) );
   dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(2) );
@@ -136,16 +143,24 @@ void OnButtonClick(HELEMENT button)
     //button->get_attribute_name();
 }
 
+
+
+
 LRESULT OnAttachBehavior(LPNMHL_ATTACH_BEHAVIOR lpab )
 {
     // attach custom behaviors GetHtmlResource
     //MessageBox(NULL,lpab->behaviorName,"1",MB_OK);
     htmlayout::event_handler *pb = htmlayout::behavior::find(lpab->behaviorName, lpab->element);
+       
+    htmlayout::debug_output_console dc;
+      dc.printf("behave: %s\n", lpab->behaviorName );
+
     if(pb) 
     {
       lpab->elementTag  = pb;
       lpab->elementProc = htmlayout::behavior::element_proc;
       lpab->elementEvents = pb->subscribed_to;
+
     }
     return 0;
 } 
