@@ -1,9 +1,13 @@
 #include "stdio.h"
 #include "htmlayout.h"
 #include "windows.h"
+#include <string>
+using namespace std;
+
 
 #include "Include_behavior.cpp"
 #include "Include_const.h"
+#include "debug.h"
 
 LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM) ;
 BOOL        GetHtmlResource(LPCSTR pszName, /*out*/PBYTE& pb, /*out*/DWORD& cb);
@@ -101,8 +105,8 @@ struct DOMEventsHandlerType: htmlayout::event_handler
         case ELEMENT_EXPANDED:          break;// element was expanded,
 
         }
-        htmlayout::debug_output_console dc;
-        dc.printf("tagName=%s",$D(he).get_attribute_name(1));
+//        htmlayout::debug_output_console dc;
+//        dc.printf("tagName=%s",$D(he).get_attribute_name(1));
         return FALSE; 
       }
  
@@ -130,15 +134,15 @@ LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam,
   return 0;
 }
 
+
 void OnButtonClick(HELEMENT button)
 {
-  htmlayout::debug_output_console dc;
-  dc.printf("BUTTON_CLICK: %d\n", $D(button).get_attribute_count() );
-  dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(0) );
-  dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(1) );
-  dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(2) );
-  dc.printf("BUTTON_CLICK: %s\n", htmlayout::dom::element(button).get_attribute_name(3) );
-
+  showDebug($D(button).get_attribute_name(0));
+  string a;
+  a="jjjjjjjj<b>哈</b>j<i>j</i>jjjjjjjjjjj";
+  unsigned char aa[128]="";
+  strcpy((char*)aa,a.c_str());
+  $D(button).set_html(aa,128);
 	//::MessageBoxW(NULL,L"My name is demo1.",L"Demo",0);
     //button->get_attribute_name();
 }
