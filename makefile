@@ -28,7 +28,7 @@ bin/main.obj:src/main.cpp
 bin/debug.obj:src/debug.cpp src/h/debug.h
 	$(cc) $?  $(DEBUG) $(OUTOBJ)  $(includeDir)
 
-bin/main.res:
+bin/main.res:src/html/default.htm
 	cd src/html
 	windres a.rc ../../bin/main.res
 	cd ../../

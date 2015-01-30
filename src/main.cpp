@@ -137,12 +137,14 @@ LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam,
 
 void OnButtonClick(HELEMENT button)
 {
+  wstring a($D(button).get_attribute("idd"));
+  MessageBoxW(NULL,a.c_str(),L"1",MB_OK);
   showDebug($D(button).get_attribute_name(0));
-  string a;
-  a="jjjjjjjj<b>哈</b>j<i>j</i>jjjjjjjjjjj";
-  unsigned char aa[128]="";
-  strcpy((char*)aa,a.c_str());
-  $D(button).set_html(aa,128);
+  //string a;
+  //a="jjjjjjjj<b>哈</b>j<i>j</i>jjjjjjjjjjj";
+  //unsigned char aa[128]="";
+  //strcpy((char*)aa,a.c_str());
+  //$D(button).set_html(aa,128);
 	//::MessageBoxW(NULL,L"My name is demo1.",L"Demo",0);
     //button->get_attribute_name();
 }
