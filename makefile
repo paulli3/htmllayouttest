@@ -5,7 +5,7 @@ baseInclude="$(baseDir)\include"
 baseLib=$(baseDir)\lib
 includeDir=/I"include" /I"include/behaviors" /I"src/h"
 sourceDir=./src
-DEBUG=/GA /MD /Ox /Ot /W3 /c  /EHsc #/link  /INCREMENTAL:no /NODEFAULTLIB:libcmt.lib  
+DEBUG=/GA /MD /Ox /Ot /W3 /c /nologo  /EHsc #/link  /INCREMENTAL:no /NODEFAULTLIB:libcmt.lib  
 OUTOBJ=/Fo:$@
 
 SOURCES=bin/main.obj bin/main.res bin/debug.obj
@@ -17,11 +17,11 @@ OUTDIR="bin/"
 main:main.exe
 
 main.exe:$(SOURCES)
-	$(cc)  /Fe:"$@" user32.lib gdi32.lib lib/HTMLayout.lib $(SOURCES)
+	$(cc) /nologo  /Fe:"$@" user32.lib gdi32.lib lib/HTMLayout.lib $(SOURCES)
 
 bin/main.obj:src/main.cpp
-	echo $?
-	echo $(@D) $(@F)
+#	echo $?
+#	echo $(@D) $(@F)
 	$(cc) $(?)  $(DEBUG) $(OUTOBJ)  $(includeDir)
 #	$(cc) lib/*.obj /Fetest.exe
 
