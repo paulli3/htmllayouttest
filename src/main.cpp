@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "html/res.h"
 #include "htmlayout.h"
 #include "windows.h"
 #include <string>
@@ -139,8 +140,11 @@ void OnButtonClick(HELEMENT button)
 {
   wstring a($D(button).get_attribute("idd"));
   MessageBoxW(NULL,a.c_str(),L"1",MB_OK);
-  showDebug($D(button).get_attribute_name(0));
+//``````  showDebug($D(button).get_attribute_name(0));
   //string a;
+  htmlayout::dialog dlg(NULL);
+        dlg.show(IDR_ABOUT);
+
   //a="jjjjjjjj<b>哈</b>j<i>j</i>jjjjjjjjjjj";
   //unsigned char aa[128]="";
   //strcpy((char*)aa,a.c_str());
@@ -189,11 +193,11 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
      switch (message)
      {
      case WM_PAINT:
-          hdc = BeginPaint (hwnd, &ps) ;
-          GetClientRect (hwnd, &rect) ;
-          DrawText (hdc, TEXT ("world"), -1, &rect,
-                    DT_SINGLELINE | DT_CENTER | DT_VCENTER) ;
-          EndPaint (hwnd, &ps) ;
+//          hdc = BeginPaint (hwnd, &ps) ;
+//          GetClientRect (hwnd, &rect) ;
+//          DrawText (hdc, TEXT ("world"), -1, &rect,
+//                    DT_SINGLELINE | DT_CENTER | DT_VCENTER) ;
+//          EndPaint (hwnd, &ps) ;
           return 0 ;
      case WM_DESTROY:
           PostQuitMessage (0) ;
@@ -210,6 +214,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         PBYTE pb; DWORD cb;
         if(GetHtmlResource("DEFAULT",pb,cb))
           HTMLayoutLoadHtml(hwnd,pb,cb);
+        
         return 0;
       }
       break;

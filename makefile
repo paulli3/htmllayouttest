@@ -17,7 +17,7 @@ OUTDIR="bin/"
 main:main.exe
 
 main.exe:$(SOURCES)
-	$(cc) /nologo  /Fe:"$@" user32.lib gdi32.lib lib/HTMLayout.lib $(SOURCES)
+	$(cc) /nologo  /Fe:"$@" user32.lib shell32.lib  kernel32.lib Advapi32.lib gdi32.lib lib/HTMLayout.lib $(SOURCES)
 
 bin/main.obj:src/main.cpp
 #	echo $?
@@ -28,7 +28,7 @@ bin/main.obj:src/main.cpp
 bin/debug.obj:src/debug.cpp src/h/debug.h
 	$(cc) $?  $(DEBUG) $(OUTOBJ)  $(includeDir)
 
-bin/main.res:src/html/default.htm
+bin/main.res:src/html/default.htm src/html/dialog.htm
 	cd src/html
 	windres a.rc ../../bin/main.res
 	cd ../../
