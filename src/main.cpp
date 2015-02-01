@@ -138,8 +138,8 @@ LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam,
 
 void OnButtonClick(HELEMENT button)
 {
-  wstring a($D(button).get_attribute("idd"));
-  MessageBoxW(NULL,a.c_str(),L"1",MB_OK);
+//  wstring a($D(button).get_attribute("idd"));
+//  MessageBoxW(NULL,a.c_str(),L"1",MB_OK);
 //``````  showDebug($D(button).get_attribute_name(0));
   //string a;
   htmlayout::dialog dlg(NULL);
