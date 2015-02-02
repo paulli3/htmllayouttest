@@ -1,3 +1,4 @@
 #include "res.h"
 DEFAULT     HTML    DISCARDABLE       "default.htm"
 IDR_ABOUT   HTML                      "dialog.htm"
+IDR_ROOT_EDIT   HTML                  "rootedit.htm"

@@ -1,14 +1,8 @@
-#include "stdio.h"
-#include "html/res.h"
-#include "htmlayout.h"
-#include "windows.h"
-#include <string>
+#include "debug.h"
+HINSTANCE hInst;
 using namespace std;
 
 
-#include "Include_behavior.cpp"
-#include "Include_const.h"
-#include "debug.h"
 
 LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM) ;
 BOOL        GetHtmlResource(LPCSTR pszName, /*out*/PBYTE& pb, /*out*/DWORD& cb);
@@ -16,12 +10,12 @@ LRESULT     HandleHyperlink( HWND hWnd, NMHL_HYPERLINK *pHL);
 LRESULT CALLBACK HTMLayoutNotifyHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LPVOID vParam);
 LRESULT OnAttachBehavior(LPNMHL_ATTACH_BEHAVIOR lpAB );
 
+HWND         hwnd ;
 
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,PSTR szCmdLine, int iCmdShow)
 {
      static TCHAR szAppName[] = TEXT ("HelloWin") ;
-     HWND         hwnd ;
      MSG          msg ;
      WNDCLASS     wc ;
      wc.style         = CS_HREDRAW | CS_VREDRAW ;
@@ -142,8 +136,12 @@ void OnButtonClick(HELEMENT button)
 //  MessageBoxW(NULL,a.c_str(),L"1",MB_OK);
 //``````  showDebug($D(button).get_attribute_name(0));
   //string a;
-  htmlayout::dialog dlg(NULL);
-        dlg.show(IDR_ABOUT);
+  
+  root b(hwnd);
+  b.show(1);
+
+  //htmlayout::dialog dlg(hwnd);
+  //dlg.show(IDR_ABOUT);
 
   //a="jjjjjjjj<b>哈</b>j<i>j</i>jjjjjjjjjjj";
   //unsigned char aa[128]="";
@@ -162,8 +160,8 @@ LRESULT OnAttachBehavior(LPNMHL_ATTACH_BEHAVIOR lpab )
     //MessageBox(NULL,lpab->behaviorName,"1",MB_OK);
     htmlayout::event_handler *pb = htmlayout::behavior::find(lpab->behaviorName, lpab->element);
        
-    htmlayout::debug_output_console dc;
-      dc.printf("behave: %s\n", lpab->behaviorName );
+ //   htmlayout::debug_output_console dc;
+ //     dc.printf("behave: %s\n", lpab->behaviorName );
 
     if(pb) 
     {
@@ -224,7 +222,6 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
      return DefWindowProc (hwnd, message, wParam, lParam) ;
 }
 
-HINSTANCE hInst;
 BOOL GetHtmlResource(LPCSTR pszName, /*out*/PBYTE& pb, /*out*/DWORD& cb)
 {
   // Find specified resource and check if ok

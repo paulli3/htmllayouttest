@@ -8,7 +8,7 @@ sourceDir=./src
 DEBUG=/GA /MD /Ox /Ot /W3 /c /nologo  /EHsc #/link  /INCREMENTAL:no /NODEFAULTLIB:libcmt.lib  
 OUTOBJ=/Fo:$@
 
-SOURCES=bin/main.obj bin/main.res bin/debug.obj
+SOURCES=bin/main.obj bin/main.res bin/debug.obj bin/root.obj
 OUTDIR="bin/"
 
 .SUFFIXES : .cpp
@@ -25,12 +25,16 @@ bin/main.obj:src/main.cpp
 	$(cc) $(?)  $(DEBUG) $(OUTOBJ)  $(includeDir)
 #	$(cc) lib/*.obj /Fetest.exe
 
-bin/debug.obj:src/debug.cpp src/h/debug.h
+bin/debug.obj:src/debug.cpp
 	$(cc) $?  $(DEBUG) $(OUTOBJ)  $(includeDir)
 
-bin/main.res:src/html/default.htm src/html/dialog.htm
+bin/root.obj:src/dlg_root.cpp
+	$(cc) $?  $(DEBUG) $(OUTOBJ)  $(includeDir)
+	
+bin/main.res:src/html/default.htm src/html/dialog.htm src/html/a.rc src/html/rootedit.htm
 	cd src/html
 	windres a.rc ../../bin/main.res
 	cd ../../
+
 clear:
 	rm $(SOURCES)
