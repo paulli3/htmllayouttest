@@ -5,32 +5,34 @@
     </head>
     <style>
 		body,ul,ol,dl,dd,li,div,h1,h2,h3,th,strong{margin:0;padding:0;list-style:none;font-size:12px; font-weight:normal}
-    	body,legend{color:#000;background:#edeae4}/*background:transparent*/
+    	//body,legend{color:#000;background:#edeae4}/*background:transparent*/
 		table,th,td{ border-collapse:collapse;}
 		.search{flow:horizontal}
 		.search fieldset{margin-left:1%;}
 		.main{padding:5px 10px;}
 		input{}
 		
-		.body{flow:horizontal-flow;margin-top:10px; height:1*}
-		dt,th{ height:16px; background:url(img/allbg.png) repeat-x 0 0;border-bottom:1px solid #c2bfb8}
+		.body{flow:horizontal-flow;margin-top:10px; height:1*;}
+		dt,th{ height:16px; background:url(allbg.png) repeat-x 0 0;border-bottom:1px solid #c2bfb8}
 		dt{ text-align:center;}
 		dl{ border:1px solid #7b7b78;margin-left:0 1%}
 		dl.left{width:20%;}
-		dl li {height:20px; color:#006699;vertical-align:middle;padding:3px;text-indent:10px; cursor:pointer}
+        dl li {height:20px; color:#006699;vertical-align:middle;padding:3px;text-indent:10px; cursor:pointer
+            background:url(allbg.png) repeat-x 0 0;
+        }
 		dl li:hover{ background:#EFEFEF;behavior:clickable;}
-		dl dd{ background:#FFF; }
+		//dl dd{ background:#FFF; }
 		
 		table{width:100%;}
-		td{ background:#fff; border:1px solid #EFEFEF; }
+		//td{ background:#fff; border:1px solid #EFEFEF; }
 
     html 
 	{ 
 		font:10pt Verdana; 
 		overflow:hidden;
-		//background-color:transparent;
+		background-color:transparent;
 		//background-color:#ccc;
-		background-image:url(big-green-button.png);
+		background-image:url(back.png);
 		background-repeat:expand;
 		background-position:15 15 15 15;
 	}
@@ -73,7 +75,7 @@
 
 	#topbar #icon 
 	{
-		foreground-image:url(icon.png);
+		foreground-image:url(back.png);
 		foreground-repeat:no-repeat;
 		foreground-position:50% 50%;
 	}

@@ -1,4 +1,5 @@
 #include "debug.h"
+#include "htmlayout_queue.h"
 HINSTANCE hInst;
 //using namespace std;
 
@@ -38,7 +39,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
   while (GetMessageW(&msg, NULL, 0, 0)) 
   {
     // execute asynchronous tasks in GUI thread.
-   // htmlayout::queue::execute();
+    htmlayout::queue::execute();
 
     if (!TranslateAcceleratorW(msg.hwnd, hAccelTable, &msg)) 
     {
@@ -64,8 +65,15 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Store instance handle in our global variable
-
-   htmlayout::window* pwnd = htmlayout::window::create( 0, 0, 300, 300, L"Hello world!" );
+   RECT rc;
+   GetWindowRect(GetDesktopWindow(), &rc);
+   int clientHeight=800;
+   int clientWidth=800;
+   int x = (rc.right - rc.left) / 2 - clientHeight / 2;
+   int y = (rc.bottom - rc.top) / 2 - clientWidth / 2; 
+   if (x < 0)x = 0;
+   if (y < 0)y = 0;
+   htmlayout::window* pwnd = htmlayout::window::create( x, y, clientHeight, clientWidth, L"Hello world!" );
 
    //hWnd = CreateWindowEx(WS_EX_APPWINDOW, szWindowClass, szWindowClass, WS_POPUP | WS_SYSMENU | WS_CLIPCHILDREN | WS_VISIBLE,
    //   0, 0, 300, 300, NULL, NULL, hInstance, NULL);
