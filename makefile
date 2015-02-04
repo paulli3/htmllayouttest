@@ -18,6 +18,7 @@ main:main.exe
 
 main.exe:$(SOURCES)
 	$(cc) /nologo  /Fe:"$@" user32.lib shell32.lib  kernel32.lib Advapi32.lib gdi32.lib lib/HTMLayout.lib $(SOURCES)
+	main.exe
 
 bin/main.obj:src/main.cpp
 #	echo $?
@@ -36,9 +37,8 @@ bin/window.obj:src/window.cpp
 
 bin/main.res:src/html/default.htm src/html/dialog.htm src/html/a.rc src/html/rootedit.htm
 	cd src/html
-#	"C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe"  "../../bin/main.res"
 #	windres a.rc ../../bin/main.res
-	"C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe" /D _DEBUG /D _VC80_UPGRADE=0x0600 /l"0x0409" /nologo /fo"../../bin/main.res" a.rc
+	"C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe" /D _DEBUG   /nologo /fo"../../bin/main.res" a.rc
 	cd ../../
 
 clear:

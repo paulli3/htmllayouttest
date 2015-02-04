@@ -1,102 +1,88 @@
+// Microsoft Visual C++ generated resource script.
+//
 #include "res.h"
 #include <winresrc.h>
 
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
 
 
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
 
-
-
+/////////////////////////////////////////////////////////////////////////////
+// 非特定语言 resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
-#ifdef _WIN32
-LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
-#pragma code_page(1252)
-#endif //_WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(936)
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // PNG
 //
 
-DEFAULT     HTML    DISCARDABLE       "default.htm"
-IDR_ABOUT   HTML                      "dialog.htm"
-IDR_ROOT_EDIT   HTML                  "rootedit.htm"
-
-
-BIG-RED-BUTTON          PNG     DISCARDABLE     "res\\big-red-button.png"
-BIG-GREEN-BUTTON        PNG     DISCARDABLE     "res\\big-green-button.png"
-TOPRIGHT                PNG     DISCARDABLE     "res/topright.png"
-//ICON                    PNG     DISCARDABLE     "res/icon.png"
-IDI_SKINSMALL           ICON    DISCARDABLE     "res/skinsmall.ico"
-IDI_SKIN                ICON    DISCARDABLE     "res/skin.ico"
-BACK                    PNG     DISCARDABLE     "res/back.png"
-ALL_BG                    PNG     DISCARDABLE     "res/allbg.png"
-#endif    // Neutral resources
+BIG-RED-BUTTON          PNG                     "res\\big-red-button.png"
+BIG-GREEN-BUTTON        PNG                     "res\\big-green-button.png"
+BIG-GREEN-BUTTON2        PNG                     "res\\big-green-button2.png"
+BIG-GREEN-BUTTON3        PNG                     "res\\big-green-button3.png"
+ALLBG			        PNG                     "res\\allbg.png"
+BACK1			        PNG                     "res\\back1.png"
+#endif    // 非特定语言 resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// 非特定语言(默认值) resources
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英语(美国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // PNG
 //
 
-//TOPRIGHT                PNG     DISCARDABLE     "res\\topright.png"
-//ICON                    PNG     DISCARDABLE     "res\\icon.png"
+TOPRIGHT                PNG                     "res\\topright.png"
+ICON                    PNG                     "res\\icon.png"
 
-
-#ifndef _MAC
+#ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
 //
-// Version
+// TEXTINCLUDE
 //
 
-VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
- FILEFLAGSMASK 0x3fL
-#ifdef _DEBUG
- FILEFLAGS 0x1L
-#else
- FILEFLAGS 0x0L
-#endif
- FILEOS 0x40004L
- FILETYPE 0x1L
- FILESUBTYPE 0x0L
+1 TEXTINCLUDE 
 BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
-        BLOCK "040904b0"
-        BEGIN
-            VALUE "Comments", "\0"
-            VALUE "CompanyName", "Terra Informatica, Inc\0"
-            VALUE "FileDescription", "skin\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
-            VALUE "InternalName", "skin\0"
-            VALUE "LegalCopyright", "Copyright ?2002-2006, Andrew Fedoniouk and Terra Informatica Software, Inc., http://terrainformatica.com\0"
-            VALUE "LegalTrademarks", "\0"
-            VALUE "OriginalFilename", "skin.exe\0"
-            VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "Terra skin\0"
-            VALUE "ProductVersion", "1, 0, 0, 1\0"
-            VALUE "SpecialBuild", "\0"
-        END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x409, 1200
-    END
+    "res.h\0"
 END
 
-#endif    // !_MAC
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""res.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -106,10 +92,13 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
+IDI_SKINSMALL           ICON                    "res\\skinsmall.ico"
+IDI_SKIN                ICON                    "res\\skin.ico"
 
-//IDI_SKINSMALL           ICON    DISCARDABLE     "res\\skinsmall.ico"
-//IDI_SKIN                ICON    DISCARDABLE     "res\\skin.ico"
-
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
 
 
 
@@ -119,27 +108,27 @@ END
 // HTML
 //
 
-
-#endif    // English (U.S.) resources
+DEFAULT                 HTML                    "default.htm"
+IDR_ABOUT   			HTML                      "dialog.htm"
+IDR_ROOT_EDIT   		HTML                  "rootedit.htm"
+#endif    // 英语(美国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (Canada) resources
+// 英语(加拿大) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENC)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_CAN
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // PNG
 //
 
-//BACK                    PNG     DISCARDABLE     "res\\back.png"
-#endif    // English (Canada) resources
+BACK                    PNG                     "res\\back.png"
+#endif    // 英语(加拿大) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -153,3 +142,4 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_CAN
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
+

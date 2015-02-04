@@ -12,12 +12,12 @@
 		.main{padding:5px 10px;}
 		input{}
 		
-		.body{flow:horizontal-flow;margin-top:10px; height:1*;}
+		.body{flow:horizontal-flow;margin-top:10px; height:1*; background-image:url(allbg.png);}
 		dt,th{ height:16px; background:url(allbg.png) repeat-x 0 0;border-bottom:1px solid #c2bfb8}
 		dt{ text-align:center;}
 		dl{ border:1px solid #7b7b78;margin-left:0 1%}
 		dl.left{width:20%;}
-        dl li {height:20px; color:#006699;vertical-align:middle;padding:3px;text-indent:10px; cursor:pointer
+        dl li {height:20px; color:#006699;vertical-align:middle;padding:3px;text-indent:10px; cursor:pointer;
             background:url(allbg.png) repeat-x 0 0;
         }
 		dl li:hover{ background:#EFEFEF;behavior:clickable;}
@@ -32,7 +32,7 @@
 		overflow:hidden;
 		background-color:transparent;
 		//background-color:#ccc;
-		background-image:url(back.png);
+		background-image:url(back1.png);
 		background-repeat:expand;
 		background-position:15 15 15 15;
 	}
@@ -51,8 +51,8 @@
 		padding:1px;
 		font-family: marlett;
 		font-size:10pt;
-		color: #274749;
-		border:1px solid #B0CFD1;
+		color: #FFF;
+		border:1px solid #FFF;
 		text-align:center;
 		vertical-align:center;
 		margin:0;
@@ -82,19 +82,18 @@
 	#topbar
 	{
 		flow:horizontal;
-		margin-bottom:3px;
+		padding:4px 10px 5px;
 	}
 
 	#topbar #caption 
 	{
 		//color: #274749;
-		color: black;
+		color: #FFF;
 		padding:0 4px;
 		outline:3px glow #274749;
 	}
     #bottombar 
 	{
-		margin-top:3px;
 		flow:horizontal;
 	}
 
@@ -115,12 +114,12 @@
     </style>
     <body>
     <div id="topbar">
-		<widget id="icon" type="button"></widget>
-		<div id="caption"></div>
-		<widget id="minimize" type="button">0</widget>
-		<widget id="maximize" type="button">1</widget>
-		<widget id="close" type="button" title="Guess what is this button doing?">r</widget>
-	</div>
+      <widget id="icon" type="button"></widget>
+      <div id="caption"></div>
+      <widget id="minimize" type="button">0</widget>
+      <widget id="maximize" type="button">1</widget>
+      <widget id="close" type="button" title="Guess what is this button doing?">r</widget>
+    </div>
 
         <div .main>
             <div .head>
