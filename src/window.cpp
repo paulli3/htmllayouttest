@@ -212,7 +212,6 @@ namespace htmlayout
   // HTMLayout -
 
     window* me = self(hwnd);
-
     switch (message) 
     {
       
