@@ -52,6 +52,8 @@ namespace htmlayout
 //                                x, y, width, height, NULL, NULL, hinstance, NULL);
     self(pw->hwnd,pw);
     HTMLayoutSetCallback(pw->hwnd,&callback,pw);
+
+    //attach_event_handler(pw->hwnd, &DOMEventsHandler);//事件处理函数
     PBYTE pb; DWORD cb;
     if(load_resource_data(L"DEFAULT",pb,cb))
     {
@@ -74,7 +76,46 @@ namespace htmlayout
     }
     return pw;
   }
+  
+/*   LRESULT CALLBACK callback(UINT uMsg, WPARAM wParam, LPARAM lParam, LPVOID vParam)  */
+  // {
+      // // all HTMLayout notification are comming here.
+      // NMHDR*  phdr = (NMHDR*)lParam;
+      // //MessageBox(NULL,"1","1",MB_OK);
+      // switch(phdr->code)
+      // {
+          // case HLN_CREATE_CONTROL:    break; //return OnCreateControl((LPNMHL_CREATE_CONTROL) lParam);
+          // case HLN_CONTROL_CREATED:   break; //return OnControlCreated((LPNMHL_CREATE_CONTROL) lParam);
+          // case HLN_DESTROY_CONTROL:   break; //return OnDestroyControl((LPNMHL_DESTROY_CONTROL) lParam);
+          // case HLN_LOAD_DATA:         break; //return OnLoadData((LPNMHL_LOAD_DATA) lParam);
+          // case HLN_DATA_LOADED:       break; //return OnDataLoaded((LPNMHL_DATA_LOADED)lParam);
+          // case HLN_DOCUMENT_COMPLETE: 
+                                      // //MessageBox(NULL,"1","1",MB_OK);
 
+                                      // break; //return OnDocumentComplete();
+
+          // case HLN_ATTACH_BEHAVIOR:   break;//htmlayout::window::OnAttachBehavior((LPNMHL_ATTACH_BEHAVIOR)lParam );break;
+      // }
+      // return 0;
+  /* }  */
+
+  static LRESULT OnAttachBehavior(LPNMHL_ATTACH_BEHAVIOR lpab )
+  {
+      // attach custom behaviors GetHtmlResource
+      //MessageBox(NULL,lpab->behaviorName,"1",MB_OK);
+      htmlayout::event_handler *pb = htmlayout::behavior::find(lpab->behaviorName, lpab->element);
+
+      //   htmlayout::debug_output_console dc;
+      //     dc.printf("behave: %s\n", lpab->behaviorName );
+
+      if(pb) 
+      {
+          lpab->elementTag  = pb;
+          lpab->elementProc = htmlayout::behavior::element_proc;
+          lpab->elementEvents = pb->subscribed_to;
+      }
+      return 0;
+  } 
   void window::set_caption( const wchar_t* text )
   {
     if(text)
@@ -152,7 +193,6 @@ namespace htmlayout
   {
     if( type != BUTTON_CLICK)
       return FALSE; // handling only button clicks here. 
-
     if( target == button_min)
     {
       ::ShowWindow(hwnd,SW_MINIMIZE); 
@@ -177,7 +217,7 @@ namespace htmlayout
     dom::element button = target;
     //::MessageBoxW(button.get_element_hwnd(true) ,button.get_attribute("id"), L"Click on the button with id:", MB_OK);
     //::MessageBox(button.get_element_hwnd(true) ,"test", "Click on the button with id:", MB_OK);
-
+    OnButtonClick(hwnd,target);
     return TRUE;
   }
 
@@ -194,6 +234,8 @@ namespace htmlayout
       GetWindowPlacement(hwnd,&wp);
       return wp.showCmd == SW_SHOWMAXIMIZED;
   }
+  
+  
 
   LRESULT CALLBACK window::win_proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
   {
@@ -249,3 +291,33 @@ namespace htmlayout
   }
 
 }
+void htmlayout::window::OnButtonClick(HWND hwnd,HELEMENT button)
+{
+    ::root a(hwnd);
+    a.show(IDR_ABOUT);
+}
+
+
+  LRESULT CALLBACK callback(UINT uMsg, WPARAM wParam, LPARAM lParam, LPVOID vParam)  
+  {
+      // all HTMLayout notification are comming here.
+      NMHDR*  phdr = (NMHDR*)lParam;
+      //MessageBox(NULL,"1","1",MB_OK);
+      switch(phdr->code)
+      {
+          case HLN_CREATE_CONTROL:    break; //return OnCreateControl((LPNMHL_CREATE_CONTROL) lParam);
+          case HLN_CONTROL_CREATED:   break; //return OnControlCreated((LPNMHL_CREATE_CONTROL) lParam);
+          case HLN_DESTROY_CONTROL:   break; //return OnDestroyControl((LPNMHL_DESTROY_CONTROL) lParam);
+          case HLN_LOAD_DATA:         break; //return OnLoadData((LPNMHL_LOAD_DATA) lParam);
+          case HLN_DATA_LOADED:       break; //return OnDataLoaded((LPNMHL_DATA_LOADED)lParam);
+          case HLN_DOCUMENT_COMPLETE: 
+                                      //MessageBox(NULL,"1","1",MB_OK);
+
+                                      break; //return OnDocumentComplete();
+
+          case HLN_ATTACH_BEHAVIOR:   break;//htmlayout::window::OnAttachBehavior((LPNMHL_ATTACH_BEHAVIOR)lParam );break;
+      }
+      return 0;
+  }  
+
+

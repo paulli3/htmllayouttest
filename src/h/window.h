@@ -27,6 +27,11 @@ public:
   void            set_caption( const wchar_t* text );
 
   static  ATOM              register_class(HINSTANCE hInstance);
+  static void OnButtonClick(HWND hwnd,HELEMENT button);
+  
+//  static LRESULT CALLBACK callback(UINT uMsg, WPARAM wParam, LPARAM lParam, LPVOID vParam);
+  static LRESULT OnAttachBehavior(LPNMHL_ATTACH_BEHAVIOR lpab );
+
 protected:
   window(): event_handler(HANDLE_BEHAVIOR_EVENT) {}
 
