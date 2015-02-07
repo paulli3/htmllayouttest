@@ -191,6 +191,10 @@ namespace htmlayout
 
   BOOL window::on_event (HELEMENT he, HELEMENT target, BEHAVIOR_EVENTS type, UINT_PTR reason )
   {
+    if (type == EDIT_VALUE_CHANGED)
+    {
+        showDebug(1);
+    }
     if( type != BUTTON_CLICK)
       return FALSE; // handling only button clicks here. 
     if( target == button_min)

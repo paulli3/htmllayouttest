@@ -80,11 +80,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    if (x < 0)x = 0;
    if (y < 0)y = 0;
    
-   RegisterHotKey(NULL,HOTKEY_ESC,0,VK_ESCAPE); //注册快捷键
-
-   RegisterHotKey(NULL,HOTKEY_SHOW,MOD_SHIFT,VK_ESCAPE); //注册快捷键
    //用作全局变量pwnd
    pwnd = htmlayout::window::create( x, y, clientWidth, clientHeight, L"Hello world!" );
+   
+   RegisterHotKey(pwnd->hwnd,HOTKEY_ESC,0,VK_ESCAPE); //注册快捷键
+   RegisterHotKey(NULL,HOTKEY_SHOW,MOD_SHIFT,VK_ESCAPE); //注册快捷键
 
    //hWnd = CreateWindowEx(WS_EX_APPWINDOW, szWindowClass, szWindowClass, WS_POPUP | WS_SYSMENU | WS_CLIPCHILDREN | WS_VISIBLE,
    //   0, 0, 300, 300, NULL, NULL, hInstance, NULL);
@@ -106,10 +106,12 @@ void HotKeyProc(WPARAM wparam)
     {
         case HOTKEY_SHOW:{
             ::ShowWindow(pwnd->hwnd,SW_RESTORE);
+            RegisterHotKey(pwnd->hwnd,HOTKEY_ESC,0,VK_ESCAPE);
             break;
         }
         case HOTKEY_ESC : {
             ::ShowWindow(pwnd->hwnd,SW_MINIMIZE);
+            UnregisterHotKey(pwnd->hwnd, HOTKEY_ESC); //释放hotkey使其他程序能够使用hotkey
             break;
         }
     }    
