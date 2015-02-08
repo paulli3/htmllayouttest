@@ -298,7 +298,7 @@ namespace htmlayout
 void htmlayout::window::OnButtonClick(HWND hwnd,HELEMENT button)
 {
     ::root a(hwnd);
-    a.show(IDR_ABOUT);
+    a.show(IDR_ROOT_EDIT);
 }
 
 

@@ -2,14 +2,27 @@
 
 
 
-
-
-
-void root::show(int resID)
+BOOL root::handle_key (HELEMENT he, KEY_PARAMS& params )
 {
-    //showDebug(resID);
-    htmlayout::dialog dlg(hwnd);
-    dlg.show(IDR_ROOT_EDIT);
-
+    BOOL flag=FALSE;
+    if (! (flag=htmlayout::dialog::handle_key(he,params)))
+    {
+        showDebug(params.key_code);
+        switch (params.key_code)
+        {
+            case 1 :{
+                   MessageBox(NULL,"1","1",1); 
+                    }
+        }
+    }
+    return flag;
 }
-;
+
+
+//void root::show(int resID)
+//{
+    //showDebug(resID);
+    //htmlayout::dialog dlg(hwnd);
+
+//}
+//;
