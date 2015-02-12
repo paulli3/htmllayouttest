@@ -16,4 +16,6 @@ void showDebug(const char * str);
 
 void showDebug(int i);
 
+void showDebug(LPCSTR str);
+
 #endif
