@@ -13,11 +13,10 @@ namespace htmlayout{
            bool buttonClick(HWND hwnd,HELEMENT button);
     };
 
-    class doaction
-    {
-        public:
-            bool addroot();
-    };
-
+    
 };
+namespace doaction
+{
+    bool show_add_root(HWND hwnd);
+}
 #endif

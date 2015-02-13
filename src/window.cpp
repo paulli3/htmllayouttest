@@ -193,7 +193,7 @@ namespace htmlayout
   {
     if (type == EDIT_VALUE_CHANGED)
     {
-        showDebug(1);
+       // showDebug(1);
     }
     if( type != BUTTON_CLICK)
       return FALSE; // handling only button clicks here. 

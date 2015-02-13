@@ -51,12 +51,16 @@
 			width:300px;
 			height:300px;				
 		}
+		html{
+			behavior:accesskeys actions;
+		}
         </style>
     </head>
 	<body>
     	<div .main>
-        	<!--<label for="author"><span class="input-prepend">昵称</span></label><input type="text">-->
-
+        	<label for="author"><span class="input-prepend" name="aaa">昵称</span></label><input type="text">
+			<button accesskey="^Q" action="alert:q pressed">7</button>
+<!--
             <richtext  name="html" content-style="content.css"
                 allow-clipboard-images >
             content of the <em>evernote</em> 
@@ -67,6 +71,7 @@ This is sample text line #2
 This is sample text line #3
 This is sample text line #4
 				</TEXTAREA>
+				-->
           <button name="OK" role="default-button" > OK </button>
         </div>
             

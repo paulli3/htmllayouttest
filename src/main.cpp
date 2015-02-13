@@ -1,5 +1,7 @@
 #include "debug.h"
 #include "htmlayout_queue.h"
+#include "behavior_accesskeys.cpp"
+#include "behavior_actions.cpp"
 HINSTANCE hInst;
 htmlayout::window* pwnd;
 //using namespace std;
@@ -112,6 +114,7 @@ void HotKeyProc(WPARAM wparam)
         case HOTKEY_ESC : {
             ::ShowWindow(pwnd->hwnd,SW_MINIMIZE);
             UnregisterHotKey(pwnd->hwnd, HOTKEY_ESC); //释放hotkey使其他程序能够使用hotkey
+            PostQuitMessage(0);
             break;
         }
     }    

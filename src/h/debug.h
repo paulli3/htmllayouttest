@@ -10,7 +10,7 @@
 #include "window.h"
 #include "action.h"
 
-#include "Include_behavior.cpp"
+//#include "Include_behavior.cpp"
 #include "Include_const.h"
 
 void showDebug(const char * str);
@@ -19,4 +19,5 @@ void showDebug(int i);
 
 void showDebug(LPCSTR str);
 
+void showDebug(const wchar_t * str);
 #endif
