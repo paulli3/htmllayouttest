@@ -297,20 +297,24 @@ namespace htmlayout
 }
 void htmlayout::window::OnButtonClick(HWND hwnd,HELEMENT button)
 {
-    ::root a(hwnd);
-    htmlayout::named_values values;
-    if (a.input(IDR_ROOT_EDIT,values) == IDOK)
-    {
-        std::wstring s;
-      for ( htmlayout::named_values::const_iterator it = values.begin(); it != values.end() ; ++it )
-      {
-        s += (*it).first;
-        s += L"=";
-        s += (*it).second.to_string();
-        s += L"\n";
-      }
-      ::MessageBoxW(hwnd,s.c_str(),L"values are:", MB_OK);
-    }
+    
+    htmlayout::action act(hwnd);
+    act.buttonClick(hwnd,button);
+    /* ::root a(hwnd); */
+    // htmlayout::named_values values;
+
+    // if (a.input(IDR_ROOT_EDIT,values) == IDOK)
+    // {
+        // std::wstring s;
+      // for ( htmlayout::named_values::const_iterator it = values.begin(); it != values.end() ; ++it )
+      // {
+        // s += (*it).first;
+        // s += L"=";
+        // s += (*it).second.to_string();
+        // s += L"\n";
+      // }
+      // ::MessageBoxW(hwnd,s.c_str(),L"values are:", MB_OK);
+    /* } */
 }
 
 

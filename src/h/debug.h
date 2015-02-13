@@ -8,6 +8,7 @@
 #include <string>
 #include "root.h"
 #include "window.h"
+#include "action.h"
 
 #include "Include_behavior.cpp"
 #include "Include_const.h"
