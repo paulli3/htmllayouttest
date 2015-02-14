@@ -28,6 +28,7 @@
 
     html 
 	{ 
+		behavior:accesskeys tests;
 		font:10pt Verdana; 
 		overflow:hidden;
 		background-color:transparent;
@@ -113,6 +114,8 @@
 	}
     </style>
     <body>
+    
+    
     <div id="topbar">
       <widget id="icon" type="button"></widget>
       <div id="caption"></div>
@@ -122,7 +125,7 @@
     </div>
 
         <div .main>
-        	<button id="abc" act="show_add_root">添加</button>
+        	<button id="abc" act="show_add_root" action="showdialog:rootedit">添加</button>
             <div .head>
                 <ul .search>
 					<fieldset>

@@ -20,10 +20,10 @@ main.exe:$(SOURCES)
 	$(cc) /nologo  /Fe:"$@" user32.lib shell32.lib  kernel32.lib Advapi32.lib gdi32.lib lib/HTMLayout.lib $(SOURCES)
 	main.exe
 
-bin/main.obj:src/main.cpp
+bin/main.obj:src/main.cpp include/behaviors/behavior_tests.cpp
 #	echo $?
 #	echo $(@D) $(@F)
-	$(cc) $(?)  $(DEBUG) $(OUTOBJ)  $(includeDir)
+	$(cc) src/main.cpp  $(DEBUG) $(OUTOBJ)  $(includeDir)
 #	$(cc) lib/*.obj /Fetest.exe
 
 bin/debug.obj:src/debug.cpp

@@ -109,8 +109,10 @@ IDI_SKIN                ICON                    "res\\skin.ico"
 //
 
 DEFAULT                 HTML                    "default.htm"
-IDR_ABOUT   			HTML                      "dialog.htm"
+INCLUDE                 HTML                    "include.htm"
+IDR_ABOUT   			HTML                    "dialog.htm"
 IDR_ROOT_EDIT   		HTML                  "rootedit.htm"
+
 #endif    // Ó¢Óï(ÃÀ¹ú) resources
 /////////////////////////////////////////////////////////////////////////////
 

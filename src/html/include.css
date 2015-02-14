@@ -1,0 +1,110 @@
+<style>
+		body,ul,ol,dl,dd,li,div,h1,h2,h3,th,strong{margin:0;padding:0;list-style:none;font-size:12px; font-weight:normal}
+    	//body,legend{color:#000;background:#edeae4}/*background:transparent*/
+		table,th,td{ border-collapse:collapse;}
+		.search{flow:horizontal}
+		.search fieldset{margin-left:1%;}
+		.main{padding:5px 10px;}
+		input{}
+		
+		.body{flow:horizontal-flow;margin-top:10px; height:1*; background-image:url(allbg.png);}
+		dt,th{ height:16px; background:url(allbg.png) repeat-x 0 0;border-bottom:1px solid #c2bfb8}
+		dt{ text-align:center;}
+		dl{ border:1px solid #7b7b78;margin-left:0 1%}
+		dl.left{width:20%;}
+        dl li {height:20px; color:#006699;vertical-align:middle;padding:3px;text-indent:10px; cursor:pointer;
+            background:url(allbg.png) repeat-x 0 0;
+        }
+		dl li:hover{ background:#EFEFEF;behavior:clickable;}
+		//dl dd{ background:#FFF; }
+		
+		table{width:100%;}
+		//td{ background:#fff; border:1px solid #EFEFEF; }
+
+    html 
+	{ 
+		behavior:accesskeys tests;
+		font:10pt Verdana; 
+		overflow:hidden;
+		background-color:transparent;
+		//background-color:#ccc;
+		background-image:url(back1.png);
+		background-repeat:expand;
+		background-position:15 15 15 15;
+	}
+	body 
+	{ 
+		padding:3px;
+		margin:0;
+		width:100%%; 
+		height:100%%; 
+	}
+    #topbar widget[type="button"] 
+	{
+		width:1em;
+		height:1em;
+		background-image:none;
+		padding:1px;
+		font-family: marlett;
+		font-size:10pt;
+		color: #FFF;
+		border:1px solid #FFF;
+		text-align:center;
+		vertical-align:center;
+		margin:0;
+		
+	}
+	#topbar widget[type="button"]:hover 
+	{
+		color:orange;
+		border-color:orange;
+		background-color:#B0CFD1;
+		outline:2px glow orange 4px;
+	} 
+	#topbar widget[type="button"]:active 
+	{
+		background-color:#274749;
+	} 
+
+	#topbar #minimize,
+	#topbar #maximize { margin-right:2px; } 
+
+	#topbar #icon 
+	{
+		foreground-image:url(back.png);
+		foreground-repeat:no-repeat;
+		foreground-position:50% 50%;
+	}
+	#topbar
+	{
+		flow:horizontal;
+		padding:4px 10px 5px;
+	}
+
+	#topbar #caption 
+	{
+		//color: #274749;
+		color: #FFF;
+		padding:0 4px;
+		outline:3px glow #274749;
+	}
+    #bottombar 
+	{
+		flow:horizontal;
+	}
+
+	#bottombar #corner
+	{
+	    margin-top:100%%;
+		font-family: marlett;
+		font-size:10pt;
+		color: #274749;
+		width:min-intrinsic;
+	}
+
+	#bottombar #status
+	{
+		color: #274749;
+		font-size:9pt;
+	}
+    </style>

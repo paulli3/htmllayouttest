@@ -58,7 +58,8 @@ namespace htmlayout
     if(load_resource_data(L"DEFAULT",pb,cb))
     {
       HTMLayoutLoadHtml(pw->hwnd,pb,cb);
-
+    // const char * mcss="html{behavior:accesskeys tests;font:10pt Verdana;overflow:hidden;background-color:transparent;background-image:url(res:back1.png);background-repeat:expand;background-position:15 15 15 15}body{padding:3px;margin:0;width:100%%;height:100%%}#topbar widget[type=\"button\"]{width:1em;height:1em;background-image:none;padding:1px;font-family:marlett;font-size:10pt;color:#FFF;border:1px solid #FFF;text-align:center;vertical-align:center;margin:0}#topbar widget[type=\"button\"]:hover{color:orange;border-color:orange;background-color:#B0CFD1;outline:2px glow orange 4px}#topbar widget[type=\"button\"]:active{background-color:#274749}#topbar #minimize,#topbar #maximize{margin-right:2px}#topbar #icon{foreground-image:url(res:back.png);foreground-repeat:no-repeat;foreground-position:50% 50%}#topbar{flow:horizontal;padding:4px 10px 5px}#topbar #caption{color:#FFF;padding:0 4px;outline:3px glow #274749}#bottombar{flow:horizontal}#bottombar #corner{margin-top:100%%;font-family:marlett;font-size:10pt;color:#274749;width:min-intrinsic}#bottombar #status{color:#274749;font-size:9pt}";
+      // HTMLayoutAppendMasterCSS((LPCBYTE)mcss,strlen(mcss));
       dom::element r = pw->root();
 
       pw->body            = r.find_first("body");

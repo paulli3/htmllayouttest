@@ -1,7 +1,7 @@
 #include "debug.h"
 #include "htmlayout_queue.h"
 #include "behavior_accesskeys.cpp"
-#include "behavior_actions.cpp"
+#include "behavior_tests.cpp"
 HINSTANCE hInst;
 htmlayout::window* pwnd;
 //using namespace std;

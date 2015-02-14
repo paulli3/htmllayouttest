@@ -1,5 +1,5 @@
 #include "behavior_aux.h"
-#include "debug.h"
+
 namespace htmlayout 
 {
 
@@ -27,11 +27,11 @@ static bool parse_args( aux::wchars a, aux::wchars& arg1, aux::wchars& arg2, aux
 static int parse_state( aux::wchars sst );
 
 
-struct actions: public behavior
+struct tests: public behavior
 {
 
     // ctor
-    actions(): behavior(HANDLE_BEHAVIOR_EVENT, "actions") {}
+    actions(): behavior(HANDLE_BEHAVIOR_EVENT, "tests") {}
 
     virtual BOOL on_event (HELEMENT he, HELEMENT target, BEHAVIOR_EVENTS type, UINT_PTR reason ) 
     { 

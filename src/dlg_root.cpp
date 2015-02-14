@@ -3,6 +3,7 @@
 
 BOOL root::handle_key (HELEMENT he, KEY_PARAMS& params ) 
 {
+    return false;
 
     if (params.cmd == KEY_DOWN)
     {

@@ -1,5 +1,5 @@
 #include "behavior_aux.h"
-#include "debug.h"
+
 namespace htmlayout 
 {
 
@@ -27,14 +27,35 @@ static bool parse_args( aux::wchars a, aux::wchars& arg1, aux::wchars& arg2, aux
 static int parse_state( aux::wchars sst );
 
 
-struct actions: public behavior
+struct tests: public behavior
 {
 
     // ctor
-    actions(): behavior(HANDLE_BEHAVIOR_EVENT, "actions") {}
+    tests(): behavior(HANDLE_BEHAVIOR_EVENT | HANDLE_KEY, "tests") {}
+
+/*     virtual BOOL handle_key    (HELEMENT he, KEY_PARAMS& params )  */
+    // {
+        // showDebug(1);
+        // return true;
+    /* } */
+    virtual BOOL on_key    (HELEMENT he, HELEMENT target, UINT event_type, UINT code, UINT keyboardStates ) { 
+        if (event_type != KEY_UP){return FALSE;}
+        if (code == VK_RETURN)
+        {
+            dom::element btn = target;
+            dom::element root = btn.root();
+            ::PostMessage(root.get_element_hwnd(true), WM_CLOSE, 0,0 );
+        }
+        return FALSE; 
+    }
 
     virtual BOOL on_event (HELEMENT he, HELEMENT target, BEHAVIOR_EVENTS type, UINT_PTR reason ) 
     { 
+      if (type == EDIT_VALUE_CHANGED)
+      {
+
+        return TRUE;
+      }
       if( type != BUTTON_CLICK )
         return FALSE;
       
@@ -60,11 +81,32 @@ struct actions: public behavior
           ::MessageBoxW(root.get_element_hwnd(true),msg.start,L"alert!",MB_OK);
         return true;
       }
+      else if (a.like(L"showdialog:*"))
+      {
+          doaction::show_add_root(root.get_element_hwnd(true));
+          //htmlayout::doactions();
+          return true;
+
+      }
+      else if (a.like(L"saveDB:*"))
+      {
+      
+      }
+      else if (a.like(L"saveRoot:*"))
+      {
+      
+      }
+      else if (a.like(L"saveTitle:*"))
+      {
+      
+      }
+
       else if( a.like(L"copy-value:*")) // copy-value: dst selector , src selector
       {
         aux::wchars src_sel, dst_sel;
         if(!parse_args(a,dst_sel,src_sel))
           return true;
+        MessageBox(NULL,(const char*)aux::w2a(src_sel),(const char*)aux::w2a(dst_sel),0);
         dom::element src = root.find_first((const char*)aux::w2a(src_sel));
         dom::element dst = root.find_first((const char*)aux::w2a(dst_sel));
         if(!src.is_valid() || !dst.is_valid())
@@ -124,7 +166,7 @@ struct actions: public behavior
 };
 
 // instantiating and attaching it to the global list
-actions actions_instance;
+tests tests_instance;
 
 
 bool parse_args( aux::wchars a, aux::wchars& arg )
