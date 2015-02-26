@@ -44,6 +44,12 @@ struct tests: public behavior
         {
             dom::element btn = target;
             dom::element root = btn.root();
+            // root.get_element_by_id("value")
+            //json::value a;
+            //a=get_value($D(root.get_element_by_id("value")));
+            showDebug($D(root.find_first("#value")).get_value().to_string());
+            //showDebug(aux::w2a(a.to_string()));
+            // MessageBoxW(root.get_element_hwnd(true),a.to_string(),a.to_string(),0);
             ::PostMessage(root.get_element_hwnd(true), WM_CLOSE, 0,0 );
         }
         return FALSE; 
