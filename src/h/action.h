@@ -18,5 +18,6 @@ namespace htmlayout{
 namespace doaction
 {
     bool show_add_root(HWND hwnd);
+    bool show_add_root(HWND hwnd,const wchar_t * type);
 }
 #endif

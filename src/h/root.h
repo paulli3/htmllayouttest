@@ -14,9 +14,6 @@ class root : public htmlayout::dialog
         /* unsigned int show( UINT html_res_id ); */
 
 
-    private :
-        HWND hwnd ;
-        
 }
 ;
 

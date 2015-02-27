@@ -2,6 +2,7 @@
 #include "htmlayout_queue.h"
 #include "behavior_accesskeys.cpp"
 #include "behavior_tests.cpp"
+#include "sql.hpp"
 HINSTANCE hInst;
 htmlayout::window* pwnd;
 //using namespace std;

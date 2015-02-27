@@ -1,10 +1,10 @@
 #include "behavior_aux.h"
+#include "sql.hpp"
 
 namespace htmlayout 
 {
 
 /*
-
 BEHAVIOR: actions
   
   Simplistic action interpretter.
@@ -26,7 +26,46 @@ static bool parse_args( aux::wchars a, aux::wchars& arg1, aux::wchars& arg2, aux
 // parse dtring "checked" or "!checked" to int STATE_CHECKED, etc.
 static int parse_state( aux::wchars sst );
 
+BOOL FindFirstFileExists(LPCTSTR lpPath, DWORD dwFilter)
+{
+    WIN32_FIND_DATA fd;
+    HANDLE hFind = FindFirstFile(lpPath, &fd);
+    BOOL bFilter = (FALSE == dwFilter) ? TRUE : fd.dwFileAttributes & dwFilter;
+    BOOL RetValue = ((hFind != INVALID_HANDLE_VALUE) && bFilter) ? TRUE : FALSE;
+    FindClose(hFind);
+    return RetValue;
+}
 
+BOOL file_exists(LPCTSTR lpPath)
+{
+    return FindFirstFileExists(lpPath, FALSE);
+}
+
+BOOL dir_exists(LPCTSTR lpPath)
+{
+    return FindFirstFileExists(lpPath, FILE_ATTRIBUTE_DIRECTORY);
+}
+
+char * get_dir()
+{
+   static char g_cmd_path[MAX_PATH];
+   if (g_cmd_path[0]!='\0') return g_cmd_path;
+    memset( g_cmd_path, 0, MAX_PATH*sizeof(char));
+    GetCurrentDirectory( MAX_PATH, g_cmd_path );
+    // showDebug((g_cmd_path));
+    return g_cmd_path;
+}
+
+#define __DIR__ get_dir()
+
+/*
+ * 检查一个  路径 是否存在（绝对路径、相对路径，文件或文件夹均可）
+ * 存在则返回 1 (TRUE)
+ */
+BOOL FilePathExists(LPCTSTR lpPath)
+{
+    return FindFirstFileExists(lpPath, FALSE);
+}
 struct tests: public behavior
 {
 
@@ -47,7 +86,14 @@ struct tests: public behavior
             // root.get_element_by_id("value")
             //json::value a;
             //a=get_value($D(root.get_element_by_id("value")));
-            showDebug($D(root.find_first("#value")).get_value().to_string());
+            const wchar_t* value = $D(root.find_first("#value")).get_value().to_string().c_str();
+            std::string sPath = __DIR__;
+            std::string sDir(sPath + "/db");
+            if (!dir_exists(sDir.c_str()))CreateDirectory(sDir.c_str(),NULL);
+            sDir = sPath +"/db/"+ std::string(aux::w2a(value));
+            PSQL->connect(sDir);
+            //sql db(sDir.c_str());
+            PSQL->createTable();
             //showDebug(aux::w2a(a.to_string()));
             // MessageBoxW(root.get_element_hwnd(true),a.to_string(),a.to_string(),0);
             ::PostMessage(root.get_element_hwnd(true), WM_CLOSE, 0,0 );
@@ -59,8 +105,7 @@ struct tests: public behavior
     { 
       if (type == EDIT_VALUE_CHANGED)
       {
-
-        return TRUE;
+        return FALSE;
       }
       if( type != BUTTON_CLICK )
         return FALSE;
@@ -80,6 +125,7 @@ struct tests: public behavior
     bool interpret_action( dom::element root, const wchar_t* action )
     {
       aux::wchars a = aux::chars_of(action);
+
       if( a.like(L"alert:*"))
       {
         aux::wchars msg;
@@ -94,9 +140,14 @@ struct tests: public behavior
           return true;
 
       }
-      else if (a.like(L"saveDB:*"))
+      else if (a.like(L"showRootList:*"))
       {
-      
+          // ::MessageBoxW(root.get_element_hwnd(true),L"xx",L"alert!",MB_OK);
+        aux::wchars msg;
+        if(parse_args(a,msg)){
+          doaction::show_add_root(root.get_element_hwnd(true),msg.start);
+        }
+          return true;
       }
       else if (a.like(L"saveRoot:*"))
       {

@@ -3,21 +3,26 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#ifdef DEBUG
-    void debug(const char * str){
-        std::cout << str <<"\n";
-    }
-    void debug(std::map<std::string,std::string> Map)
-    {
-        std::cout << "debug --------------------> \n";
-        for(auto iter1 = Map.begin(); iter1 != Map.end(); ++iter1) 
-        {
-            std::cout << iter1->first << "=" << iter1->second << "\n";
-        }  
-    }
+#include "window.h"
+#ifndef DEBUG
+    /* void DDebug(const char * str){  */
+        // std::cout << str <<"\n";
+    // }
+    // void DDebug(std::map<std::string,std::string> Map)
+    // {
+        // std::cout << "debug --------------------> \n";
+        // for(auto iter1 = Map.begin(); iter1 != Map.end(); ++iter1) 
+        // {
+            // std::cout << iter1->first << "=" << iter1->second << "\n";
+        // }  
+    /* }  */
 #else
-    void debug(const char * str){};
-    void debug(std::map<std::string,std::string> Map){};
+   /*  void Debug(const char * str){ */
+    
+    // }; 
+    // void Debug(std::map<std::string,std::string> Map){
+    
+   /*  } */; 
 
 #endif    
 
@@ -81,26 +86,27 @@ class sql
         char * errmsg;
         Result  mResult ;
     public :
-        std::string dbFile;
         sqlite3 *db;
 
 
         sql(std::string filePath)
         {
-            dbFile=filePath;
-            connect();
-            Result mResult;
+            //MessageBox(NULL,filePath.c_str(),"1",0);
+            connect(filePath);
         }
-        bool connect()
+        sql(){}
+        bool connect(std::string dbFile)
         {
             int ret;
             ret = sqlite3_open(dbFile.c_str(),&db);
             if( ret ){   
                 fprintf(stderr,"Can't open database: %s/n", sqlite3_errmsg(db));
-                sqlite3_close(db);   
+                sqlite3_close(db);
+                MessageBox(NULL,"connect db error","error",MB_OK);
                 return false;   
             }      
-            debug("connect success;");
+
+            //DDebug("connect success;");
             return true;
         }
 
@@ -116,7 +122,7 @@ class sql
             if (! ret == SQLITE_OK){
                 char d[255];
                 sprintf(d,"query fail! [%s] [%s]",sql.c_str(),sqlite3_errmsg(db));
-                debug(d);
+                //Debug(d);
                 return false;
             }
             return true;
@@ -143,6 +149,7 @@ class sql
         }
         
 };
+sql * PSQL = new sql();
 #endif
 
 /* int main() */
