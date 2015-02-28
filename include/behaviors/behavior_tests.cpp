@@ -119,6 +119,11 @@ struct tests: public behavior
             const wchar_t* mtype = ele_value.get_attribute("mtype");
             const wchar_t* value = ele_value.get_value().get(L"value");
             wchar_t szTmp[256] = {0};
+            /* wsprintfW(szTmp,L"0x%08x", value); */
+            // OutputDebugStringW(szTmp);
+            // wsprintfW(szTmp, L"0x%08x", value);
+            /* OutputDebugStringW(szTmp); */
+
             wcscpy(szTmp, value);
             if (wcscmp(mtype,L"dbedit") == 0)
             {
@@ -216,7 +221,7 @@ struct tests: public behavior
               html = html + "<li action=\"alert:dbedit\">" + ToUTF8(aux::a2w(precode->get("title").c_str())) + "</li>";
               // html = html + "<li action=\"alert:dbedit\">" + precode->get("title") + "</li>";
           }
-          const unsigned  char chtml[10200]="";
+          const unsigned  char chtml[102000]="";
           strcpy((char*)chtml,html.c_str());
           $D(root.find_first("#rootbox")).set_html(chtml,sizeof(chtml));
       }
