@@ -102,7 +102,7 @@ class sql
             if( ret ){   
                 fprintf(stderr,"Can't open database: %s/n", sqlite3_errmsg(db));
                 sqlite3_close(db);
-                MessageBox(NULL,"connect db error","error",MB_OK);
+                //MessageBox(NULL,"connect db error","error",MB_OK);
                 return false;   
             }      
 
@@ -122,6 +122,8 @@ class sql
             if (! ret == SQLITE_OK){
                 char d[255];
                 sprintf(d,"query fail! [%s] [%s]",sql.c_str(),sqlite3_errmsg(db));
+                
+                MessageBox(NULL,d,"error",MB_OK);
                 //Debug(d);
                 return false;
             }
@@ -145,13 +147,15 @@ class sql
         {
             std::string sql;
             sql = "create table if not exists main(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT , content TEXT , create_time INTEGER  )";
-            return  query(sql);
+            query(sql);
+            sql = "create table if not exists root(id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT)";
+            return query(sql);
+
         }
         
 };
 sql * PSQL = new sql();
 #endif
-
 /* int main() */
 // {
     // sql db("D:/t");

@@ -16,9 +16,9 @@
 		dt,th{ height:16px; background:url(allbg.png) repeat-x 0 0;border-bottom:1px solid #c2bfb8}
 		dt{ text-align:center;}
 		dl{ border:1px solid #7b7b78;margin-left:0 1%}
-		dl.left{width:20%;}
-        dl li {height:20px; color:#006699;vertical-align:middle;padding:3px;text-indent:10px; cursor:pointer;
-            background:url(allbg.png) repeat-x 0 0;
+		dl.left{width:20%;overflow-y:scroll;}
+        dl li {height:20px; color:#006699;vertical-align:middle;padding:3px;text-indent:10px; cursor:pointer;background:#EFEFEF;border-top:1px solid red
+            //background:url(allbg.png) repeat-x 0 0;
         }
 		dl li:hover{ background:#EFEFEF;behavior:clickable;}
 		//dl dd{ background:#FFF; }
@@ -125,10 +125,10 @@
     </div>
 
         <div .main>
-			<button id="abc" act="show_add_root" action="showdialog:rootedit">添加数据库</button>
-        	<button id="abc" act="show_add_root" action="showRootList:11111">showRootList</button>
-			<button id="abc" act="show_add_root" action="showdialog:rootedit">添加root</button>
-			<button id="" act="show_add_root" action="showdialog:rootedit">查看-切换数据库列表</button>
+			<button id="abc"  action="showdialog:dbedit">dbedit</button>
+        	<button id="abc"  action="showdialog:rootedit">rootedit</button>
+			<button id="abc"  action="showRootList:xxx">showRootList</button>
+			<button action="showdialog:rootedit">查看-切换数据库列表</button>
 			<input type="text" value="" id="value" />
 			<div>
 				<select>请选择</select>
@@ -164,8 +164,8 @@
             <div .body>
             	<dl .left>
                 	<dt>ROOT</dt>
-                    <dd idd="333333">
-                    	<ul>
+                    <dd>
+                    	<ul id="rootbox">
                         	<li idd="1">C++</li>
                             <li idd="2">MFC</li>
                         </ul>

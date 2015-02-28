@@ -1,6 +1,6 @@
 #include "behavior_aux.h"
 #include "sql.hpp"
-
+#include <codecvt>
 namespace htmlayout 
 {
 
@@ -26,6 +26,35 @@ static bool parse_args( aux::wchars a, aux::wchars& arg1, aux::wchars& arg2, aux
 // parse dtring "checked" or "!checked" to int STATE_CHECKED, etc.
 static int parse_state( aux::wchars sst );
 
+BOOL StringToWString(const std::string &str,std::wstring &wstr)
+ {    
+     int nLen = (int)str.length();    
+     wstr.resize(nLen,L' ');
+ 
+     int nResult = MultiByteToWideChar(CP_ACP,0,(LPCSTR)str.c_str(),nLen,(LPWSTR)wstr.c_str(),nLen);
+ 
+     if (nResult == 0)
+     {
+         return FALSE;
+     }
+ 
+     return TRUE;
+ }
+ //wstring高字节不为0，返回FALSE
+ BOOL WStringToString(const std::wstring &wstr,std::string &str)
+ {    
+     int nLen = (int)wstr.length();    
+     str.resize(nLen,' ');
+ 
+     int nResult = WideCharToMultiByte(CP_ACP,0,(LPCWSTR)wstr.c_str(),nLen,(LPSTR)str.c_str(),nLen,NULL,NULL);
+ 
+     if (nResult == 0)
+     {
+         return FALSE;
+     }
+ 
+     return TRUE;
+ }
 BOOL FindFirstFileExists(LPCTSTR lpPath, DWORD dwFilter)
 {
     WIN32_FIND_DATA fd;
@@ -86,15 +115,37 @@ struct tests: public behavior
             // root.get_element_by_id("value")
             //json::value a;
             //a=get_value($D(root.get_element_by_id("value")));
-            const wchar_t* value = $D(root.find_first("#value")).get_value().to_string().c_str();
-            std::string sPath = __DIR__;
-            std::string sDir(sPath + "/db");
-            if (!dir_exists(sDir.c_str()))CreateDirectory(sDir.c_str(),NULL);
-            sDir = sPath +"/db/"+ std::string(aux::w2a(value));
-            PSQL->connect(sDir);
-            //sql db(sDir.c_str());
-            PSQL->createTable();
-            //showDebug(aux::w2a(a.to_string()));
+            dom::element ele_value = $D(root.find_first("#value"));
+            const wchar_t* mtype = ele_value.get_attribute("mtype");
+            const wchar_t* value = ele_value.get_value().get(L"value");
+            wchar_t szTmp[256] = {0};
+            wcscpy(szTmp, value);
+            if (wcscmp(mtype,L"dbedit") == 0)
+            {
+                std::string sPath = __DIR__;
+                std::string sDir(sPath + "/db");
+                if (!dir_exists(sDir.c_str()))CreateDirectory(sDir.c_str(),NULL);
+                std::string sval = std::string(aux::w2a(value));
+                sDir = sPath +"/db/"+ sval;
+                PSQL->connect(sDir);
+                PSQL->createTable();
+            }
+            else if (wcscmp(mtype,L"rootedit") == 0)
+            {
+                std::string sPath = __DIR__;
+                std::string sDir(sPath + "/db");
+                std::string sval = std::string(aux::w2a(szTmp));
+                sDir = sPath +"/db/123";
+                PSQL->connect(sDir);
+                std::string sql = "INSERT INTO root values(NULL,'"+sval+"') ";
+                MessageBox(NULL,sql.c_str(),"1",0);
+                PSQL->query(sql);
+            }
+            else
+            {
+                
+            }
+                        //showDebug(aux::w2a(a.to_string()));
             // MessageBoxW(root.get_element_hwnd(true),a.to_string(),a.to_string(),0);
             ::PostMessage(root.get_element_hwnd(true), WM_CLOSE, 0,0 );
         }
@@ -119,6 +170,11 @@ struct tests: public behavior
       return FALSE;
     }
 
+    inline std::string ToUTF8(const wchar_t* wideStr)
+    {
+        std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
+        return conv.to_bytes(wideStr);
+    }
     // Just an idea: here should go some simple interpretter.
     // If you know one - let me know.
     // For a while it is just dumb thing like this:
@@ -135,19 +191,34 @@ struct tests: public behavior
       }
       else if (a.like(L"showdialog:*"))
       {
-          doaction::show_add_root(root.get_element_hwnd(true));
-          //htmlayout::doactions();
+          aux::wchars msg;
+          if(parse_args(a,msg)){
+              doaction::show_add_root(root.get_element_hwnd(true),msg.start);
+          }
           return true;
 
       }
       else if (a.like(L"showRootList:*"))
       {
-          // ::MessageBoxW(root.get_element_hwnd(true),L"xx",L"alert!",MB_OK);
-        aux::wchars msg;
-        if(parse_args(a,msg)){
-          doaction::show_add_root(root.get_element_hwnd(true),msg.start);
-        }
-          return true;
+          std::string html ="";
+          Record * precode;
+          PSQL->connect("db/123");
+          PSQL->query("SELECT * FROM root order by id desc");
+          while ( (precode = PSQL->RESCULT()->getone() )){
+              //debug(precode->get("id").c_str());
+              int d = precode->get("title").length();
+              char len[25]="";
+              sprintf(len,"%d",d);
+              std::string c(len);
+              std::string b(precode->get("title") +"<--->"+ c);
+              /* MessageBox(NULL,b.c_str(),"1",0); */
+              /* MessageBoxW(NULL,aux::a2w( b.c_str()),L"1",0); */
+              html = html + "<li action=\"alert:dbedit\">" + ToUTF8(aux::a2w(precode->get("title").c_str())) + "</li>";
+              // html = html + "<li action=\"alert:dbedit\">" + precode->get("title") + "</li>";
+          }
+          const unsigned  char chtml[10200]="";
+          strcpy((char*)chtml,html.c_str());
+          $D(root.find_first("#rootbox")).set_html(chtml,sizeof(chtml));
       }
       else if (a.like(L"saveRoot:*"))
       {

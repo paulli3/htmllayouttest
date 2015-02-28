@@ -112,7 +112,7 @@ DEFAULT                 HTML                    "default.htm"
 INCLUDE                 HTML                    "include.htm"
 IDR_ABOUT   			HTML                    "dialog.htm"
 IDR_ROOT_EDIT   		HTML                  "rootedit.htm"
-
+IDR_DB_EDIT             HTML                    "dbedit.htm"
 #endif    // Ó¢Óï(ÃÀ¹ú) resources
 /////////////////////////////////////////////////////////////////////////////
 

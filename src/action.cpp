@@ -1,11 +1,20 @@
 #include "action.h"
 bool doaction::show_add_root(HWND hwnd,const wchar_t * type)
 {
-    return show_add_root(hwnd);
-    json::value val(type);
-    ::root a(hwnd);
-    htmlayout::dom::element _root = htmlayout::dom::root_element(a.hwnd);
-    a.show(IDR_ROOT_EDIT);
+    // return show_add_root(hwnd);
+    ::root dlg(hwnd);
+    if (wcscmp(type,L"rootedit") == 0)
+    {
+        dlg.show(IDR_ROOT_EDIT);
+    }
+    else if (wcscmp(type,L"dbedit") == 0)
+    {
+        dlg.show(IDR_DB_EDIT);
+    }
+    // json::value val(type);
+    // ::root a(hwnd);
+    // htmlayout::dom::element _root = htmlayout::dom::root_element(hwnd);
+    // a.show(IDR_ROOT_EDIT);
     //$D(_root.find_first("#value")).set_value(val);
     return true;
 }
@@ -16,7 +25,6 @@ bool doaction::show_add_root(HWND hwnd)
 {
     ::root a(hwnd); 
     htmlayout::named_values values;
-
 
     if (a.input(IDR_ROOT_EDIT,values) == IDOK)
     {
