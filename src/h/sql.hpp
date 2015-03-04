@@ -85,16 +85,21 @@ class sql
     private:
         char * errmsg;
         Result  mResult ;
+        sql(){};
+        sql & operator = (const sql &);
     public :
         sqlite3 *db;
-
-
-        sql(std::string filePath)
+        static sql & getInstance()
         {
-            //MessageBox(NULL,filePath.c_str(),"1",0);
-            connect(filePath);
+            static sql instance;
+            return instance;
         }
-        sql(){}
+        /* sql(std::string filePath) */
+        // {
+            // //MessageBox(NULL,filePath.c_str(),"1",0);
+            // connect(filePath);
+        /* } */
+        // sql(){}
         bool connect(std::string dbFile)
         {
             int ret;
@@ -154,7 +159,7 @@ class sql
         }
         
 };
-sql * PSQL = new sql();
+//sql * PSQL = new sql();
 #endif
 /* int main() */
 // {

@@ -20,3 +20,9 @@ void showDebug(int i)
     dc.printf("%d\n",i);
 
 }
+std::string ToUTF8(const wchar_t* wideStr) 
+{
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> conv; 
+    return conv.to_bytes(wideStr); 
+}
+

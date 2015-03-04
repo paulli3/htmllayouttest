@@ -1,4 +1,5 @@
 #include "action.h"
+
 bool doaction::show_add_root(HWND hwnd,const wchar_t * type)
 {
     // return show_add_root(hwnd);
@@ -20,6 +21,39 @@ bool doaction::show_add_root(HWND hwnd,const wchar_t * type)
 }
 
 
+bool doaction::showRootList(htmlayout::dom::element root)
+{
+   return showRootList(root,L"#rootbox","db/123");
+}
+
+bool doaction::showRootList(htmlayout::dom::element root,const wchar_t * parentID/* = L "#rootList"*/,const char * dbNam/* = "db/123"*/)
+{
+
+    sql * PSQL = &sql::getInstance();
+    std::string html ="";
+    Record * precode;
+    PSQL->query("SELECT * FROM root order by id desc");
+    while ( (precode = PSQL->RESCULT()->getone() )){
+        //debug(precode->get("id").c_str());
+        /* int d = precode->get("title").length(); */
+        // char len[25]="";
+        // sprintf(len,"%d",d);
+        // std::string c(len);
+        /* std::string b(precode->get("title") +"<--->"+ c); */
+        /* MessageBox(NULL,b.c_str(),"1",0); */
+        /* MessageBoxW(NULL,aux::a2w( b.c_str()),L"1",0); */
+        html = html + "<li action=\"alert:"+precode->get("id")+"\">" + ::ToUTF8(aux::a2w(precode->get("title").c_str())) + "</li>";
+        // html = html + "<li action=\"alert:dbedit\">" + precode->get("title") + "</li>";
+    }
+    const unsigned  char chtml[102000]="";
+    strcpy((char*)chtml,html.c_str());
+    htmlayout::dom::element rootList = $D(root.find_first(parentID));
+    if (rootList.is_valid())
+    {
+        rootList.set_html(chtml,sizeof(chtml));
+    }
+    return true;
+}
 
 bool doaction::show_add_root(HWND hwnd)
 {

@@ -1,6 +1,8 @@
 #include "behavior_aux.h"
 #include "sql.hpp"
 #include <codecvt>
+sql * PSQL = &sql::getInstance();
+
 namespace htmlayout 
 {
 
@@ -143,7 +145,7 @@ struct tests: public behavior
                 sDir = sPath +"/db/123";
                 PSQL->connect(sDir);
                 std::string sql = "INSERT INTO root values(NULL,'"+sval+"') ";
-                MessageBox(NULL,sql.c_str(),"1",0);
+                // MessageBox(NULL,sql.c_str(),"1",0);
                 PSQL->query(sql);
             }
             else
@@ -205,25 +207,28 @@ struct tests: public behavior
       }
       else if (a.like(L"showRootList:*"))
       {
-          std::string html ="";
-          Record * precode;
-          PSQL->connect("db/123");
-          PSQL->query("SELECT * FROM root order by id desc");
-          while ( (precode = PSQL->RESCULT()->getone() )){
-              //debug(precode->get("id").c_str());
-              int d = precode->get("title").length();
-              char len[25]="";
-              sprintf(len,"%d",d);
-              std::string c(len);
-              std::string b(precode->get("title") +"<--->"+ c);
-              /* MessageBox(NULL,b.c_str(),"1",0); */
-              /* MessageBoxW(NULL,aux::a2w( b.c_str()),L"1",0); */
-              html = html + "<li action=\"alert:dbedit\">" + ToUTF8(aux::a2w(precode->get("title").c_str())) + "</li>";
-              // html = html + "<li action=\"alert:dbedit\">" + precode->get("title") + "</li>";
-          }
-          const unsigned  char chtml[102000]="";
-          strcpy((char*)chtml,html.c_str());
-          $D(root.find_first("#rootbox")).set_html(chtml,sizeof(chtml));
+
+          doaction::showRootList(root);
+          return true;
+          /* std::string html =""; */
+          // Record * precode;
+          // PSQL->connect("db/123");
+          // PSQL->query("SELECT * FROM root order by id desc");
+          // while ( (precode = PSQL->RESCULT()->getone() )){
+              // //debug(precode->get("id").c_str());
+              // int d = precode->get("title").length();
+              // char len[25]="";
+              // sprintf(len,"%d",d);
+              // std::string c(len);
+              // std::string b(precode->get("title") +"<--->"+ c);
+              // [> MessageBox(NULL,b.c_str(),"1",0); <]
+              // [> MessageBoxW(NULL,aux::a2w( b.c_str()),L"1",0); <]
+              // html = html + "<li action=\"alert:dbedit\">" + ToUTF8(aux::a2w(precode->get("title").c_str())) + "</li>";
+              // // html = html + "<li action=\"alert:dbedit\">" + precode->get("title") + "</li>";
+          // }
+          // const unsigned  char chtml[102000]="";
+          // strcpy((char*)chtml,html.c_str());
+          /* $D(root.find_first("#rootbox")).set_html(chtml,sizeof(chtml)); */
       }
       else if (a.like(L"saveRoot:*"))
       {

@@ -18,9 +18,9 @@ main:main.exe
 
 main.exe:$(SOURCES)
 	$(cc) /nologo  /Fe:"$@" user32.lib shell32.lib  kernel32.lib Advapi32.lib gdi32.lib lib/HTMLayout.lib lib/sqlite3.lib $(SOURCES)
-	main.exe
+#	main.exe
 
-bin/main.obj:src/main.cpp include/behaviors/behavior_tests.cpp src/h/sql.hpp
+bin/main.obj:src/main.cpp include/behaviors/behavior_tests.cpp src/h/sql.hpp include/behaviors/behavior_accesskeys.cpp
 #	echo $?
 #	echo $(@D) $(@F)
 	$(cc) src/main.cpp  $(DEBUG) $(OUTOBJ)  $(includeDir)

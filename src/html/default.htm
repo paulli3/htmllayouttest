@@ -6,18 +6,20 @@
     <style>
 		body,ul,ol,dl,dd,li,div,h1,h2,h3,th,strong{margin:0;padding:0;list-style:none;font-size:12px; font-weight:normal}
     	//body,legend{color:#000;background:#edeae4}/*background:transparent*/
+		
 		table,th,td{ border-collapse:collapse;}
 		.search{flow:horizontal}
 		.search fieldset{margin-left:1%;}
-		.main{padding:5px 10px;}
+		.main{padding:5px 10px;height:100%%}
 		input{}
 		
-		.body{flow:horizontal-flow;margin-top:10px; height:1*; background-image:url(allbg.png);}
+		.body{flow:horizontal-flow;margin-top:10px;height:1*; background-image:url(allbg.png);border:1px solid red}
 		dt,th{ height:16px; background:url(allbg.png) repeat-x 0 0;border-bottom:1px solid #c2bfb8}
 		dt{ text-align:center;}
 		dl{ border:1px solid #7b7b78;margin-left:0 1%}
-		dl.left{width:20%;overflow-y:scroll;}
-        dl li {height:20px; color:#006699;vertical-align:middle;padding:3px;text-indent:10px; cursor:pointer;background:#EFEFEF;border-top:1px solid red
+		dl.left{width:20%;}
+		dl.left , dl.right{height:700px;overflow-y:scroll; }
+        dl li {height:22px; color:#000;vertical-align:middle;text-indent:10px; cursor:pointer;background:#FFF;border-top:1px solid #dadada;
             //background:url(allbg.png) repeat-x 0 0;
         }
 		dl li:hover{ background:#EFEFEF;behavior:clickable;}
@@ -61,10 +63,10 @@
 	}
 	#topbar widget[type="button"]:hover 
 	{
-		color:orange;
-		border-color:orange;
-		background-color:#B0CFD1;
-		outline:2px glow orange 4px;
+		//color:orange;
+		//border-color:orange;
+		//background-color:#B0CFD1;
+		//outline:2px glow orange 4px;
 	} 
 	#topbar widget[type="button"]:active 
 	{
@@ -133,6 +135,7 @@
 			<div>
 				<select>请选择</select>
 			</div>
+			<!--
             <div .head>
                 <ul .search>
 					<fieldset>
@@ -160,7 +163,7 @@
                     </fieldset>
                 </ul>
             </div>
-
+			-->
             <div .body>
             	<dl .left>
                 	<dt>ROOT</dt>

@@ -247,5 +247,4 @@ struct accesskeys: public behavior
 
 // instantiating and attaching it to the global list
 accesskeys accesskeys_instance;
-
 }

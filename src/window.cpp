@@ -52,6 +52,11 @@ namespace htmlayout
 //                                x, y, width, height, NULL, NULL, hinstance, NULL);
     self(pw->hwnd,pw);
     HTMLayoutSetCallback(pw->hwnd,&callback,pw);
+    
+    
+    /*初始化数据库*/
+    sql * mp_sql = &sql::getInstance();
+    mp_sql->connect("db/123");
 
     //attach_event_handler(pw->hwnd, &DOMEventsHandler);//事件处理函数
     PBYTE pb; DWORD cb;
@@ -74,7 +79,12 @@ namespace htmlayout
 
       pw->set_caption(caption);
 
+      //默认展示rootlist
+      doaction::showRootList(r);
     }
+
+
+    
     return pw;
   }
   
@@ -106,8 +116,8 @@ namespace htmlayout
       //MessageBox(NULL,lpab->behaviorName,"1",MB_OK);
       htmlayout::event_handler *pb = htmlayout::behavior::find(lpab->behaviorName, lpab->element);
 
-      //   htmlayout::debug_output_console dc;
-      //     dc.printf("behave: %s\n", lpab->behaviorName );
+      /*    htmlayout::debug_output_console dc; */
+           /* dc.printf("behave: %s\n", lpab->behaviorName ); */
 
       if(pb) 
       {
@@ -332,7 +342,6 @@ void htmlayout::window::OnButtonClick(HWND hwnd,HELEMENT button)
           case HLN_LOAD_DATA:         break; //return OnLoadData((LPNMHL_LOAD_DATA) lParam);
           case HLN_DATA_LOADED:       break; //return OnDataLoaded((LPNMHL_DATA_LOADED)lParam);
           case HLN_DOCUMENT_COMPLETE: 
-                                      //MessageBox(NULL,"1","1",MB_OK);
 
                                       break; //return OnDocumentComplete();
 
