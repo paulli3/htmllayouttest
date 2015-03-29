@@ -45,7 +45,7 @@ namespace htmlayout
   {
     window* pw = new window();
 
-    UINT style = WS_POPUP | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_SIZEBOX;
+    UINT style = WS_POPUP | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_SIZEBOX | WS_BORDER;
     pw->hwnd = CreateWindowExW( WS_EX_LAYERED, CLASSNAME, NULL, style ,
                                 x, y, width, height, NULL, NULL, hinstance, NULL);
 //    pw->hwnd = CreateWindowExW( 0, CLASSNAME, NULL, style ,
@@ -55,15 +55,14 @@ namespace htmlayout
     
     
     /*初始化数据库*/
-    sql * mp_sql = &sql::getInstance();
-    mp_sql->connect("db/123");
+    //sql * mp_sql = &sql::getInstance();
+    //mp_sql->connect("db/123");
 
     //attach_event_handler(pw->hwnd, &DOMEventsHandler);//事件处理函数
     PBYTE pb; DWORD cb;
     if(load_resource_data(L"DEFAULT",pb,cb))
     {
       HTMLayoutLoadHtml(pw->hwnd,pb,cb);
-    // const char * mcss="html{behavior:accesskeys tests;font:10pt Verdana;overflow:hidden;background-color:transparent;background-image:url(res:back1.png);background-repeat:expand;background-position:15 15 15 15}body{padding:3px;margin:0;width:100%%;height:100%%}#topbar widget[type=\"button\"]{width:1em;height:1em;background-image:none;padding:1px;font-family:marlett;font-size:10pt;color:#FFF;border:1px solid #FFF;text-align:center;vertical-align:center;margin:0}#topbar widget[type=\"button\"]:hover{color:orange;border-color:orange;background-color:#B0CFD1;outline:2px glow orange 4px}#topbar widget[type=\"button\"]:active{background-color:#274749}#topbar #minimize,#topbar #maximize{margin-right:2px}#topbar #icon{foreground-image:url(res:back.png);foreground-repeat:no-repeat;foreground-position:50% 50%}#topbar{flow:horizontal;padding:4px 10px 5px}#topbar #caption{color:#FFF;padding:0 4px;outline:3px glow #274749}#bottombar{flow:horizontal}#bottombar #corner{margin-top:100%%;font-family:marlett;font-size:10pt;color:#274749;width:min-intrinsic}#bottombar #status{color:#274749;font-size:9pt}";
       // HTMLayoutAppendMasterCSS((LPCBYTE)mcss,strlen(mcss));
       dom::element r = pw->root();
 
@@ -80,7 +79,7 @@ namespace htmlayout
       pw->set_caption(caption);
 
       //默认展示rootlist
-      doaction::showRootList(r);
+      //doaction::showRootList(r);
     }
 
 
@@ -232,7 +231,7 @@ namespace htmlayout
     dom::element button = target;
     //::MessageBoxW(button.get_element_hwnd(true) ,button.get_attribute("id"), L"Click on the button with id:", MB_OK);
     //::MessageBox(button.get_element_hwnd(true) ,"test", "Click on the button with id:", MB_OK);
-    OnButtonClick(hwnd,target);
+    //OnButtonClick(hwnd,target);
     return TRUE;
   }
 
@@ -306,48 +305,48 @@ namespace htmlayout
   }
 
 }
-void htmlayout::window::OnButtonClick(HWND hwnd,HELEMENT button)
-{
+/* void htmlayout::window::OnButtonClick(HWND hwnd,HELEMENT button) */
+// {
     
-    htmlayout::action act(hwnd);
-    act.buttonClick(hwnd,button);
-    /* ::root a(hwnd); */
-    // htmlayout::named_values values;
+    // htmlayout::action act(hwnd);
+    // act.buttonClick(hwnd,button);
+    // [> ::root a(hwnd); <]
+    // // htmlayout::named_values values;
 
-    // if (a.input(IDR_ROOT_EDIT,values) == IDOK)
-    // {
-        // std::wstring s;
-      // for ( htmlayout::named_values::const_iterator it = values.begin(); it != values.end() ; ++it )
+    // // if (a.input(IDR_ROOT_EDIT,values) == IDOK)
+    // // {
+        // // std::wstring s;
+      // // for ( htmlayout::named_values::const_iterator it = values.begin(); it != values.end() ; ++it )
+      // // {
+        // // s += (*it).first;
+        // // s += L"=";
+        // // s += (*it).second.to_string();
+        // // s += L"\n";
+      // // }
+      // // ::MessageBoxW(hwnd,s.c_str(),L"values are:", MB_OK);
+    // [> } <]
+/* } */
+
+
+  /* LRESULT CALLBACK callback(UINT uMsg, WPARAM wParam, LPARAM lParam, LPVOID vParam)   */
+  // {
+      // // all HTMLayout notification are comming here.
+      // NMHDR*  phdr = (NMHDR*)lParam;
+      // //MessageBox(NULL,"1","1",MB_OK);
+      // switch(phdr->code)
       // {
-        // s += (*it).first;
-        // s += L"=";
-        // s += (*it).second.to_string();
-        // s += L"\n";
+          // case HLN_CREATE_CONTROL:    break; //return OnCreateControl((LPNMHL_CREATE_CONTROL) lParam);
+          // case HLN_CONTROL_CREATED:   break; //return OnControlCreated((LPNMHL_CREATE_CONTROL) lParam);
+          // case HLN_DESTROY_CONTROL:   break; //return OnDestroyControl((LPNMHL_DESTROY_CONTROL) lParam);
+          // case HLN_LOAD_DATA:         break; //return OnLoadData((LPNMHL_LOAD_DATA) lParam);
+          // case HLN_DATA_LOADED:       break; //return OnDataLoaded((LPNMHL_DATA_LOADED)lParam);
+          // case HLN_DOCUMENT_COMPLETE: 
+
+                                      // break; //return OnDocumentComplete();
+
+          // case HLN_ATTACH_BEHAVIOR:   break;//htmlayout::window::OnAttachBehavior((LPNMHL_ATTACH_BEHAVIOR)lParam );break;
       // }
-      // ::MessageBoxW(hwnd,s.c_str(),L"values are:", MB_OK);
-    /* } */
-}
-
-
-  LRESULT CALLBACK callback(UINT uMsg, WPARAM wParam, LPARAM lParam, LPVOID vParam)  
-  {
-      // all HTMLayout notification are comming here.
-      NMHDR*  phdr = (NMHDR*)lParam;
-      //MessageBox(NULL,"1","1",MB_OK);
-      switch(phdr->code)
-      {
-          case HLN_CREATE_CONTROL:    break; //return OnCreateControl((LPNMHL_CREATE_CONTROL) lParam);
-          case HLN_CONTROL_CREATED:   break; //return OnControlCreated((LPNMHL_CREATE_CONTROL) lParam);
-          case HLN_DESTROY_CONTROL:   break; //return OnDestroyControl((LPNMHL_DESTROY_CONTROL) lParam);
-          case HLN_LOAD_DATA:         break; //return OnLoadData((LPNMHL_LOAD_DATA) lParam);
-          case HLN_DATA_LOADED:       break; //return OnDataLoaded((LPNMHL_DATA_LOADED)lParam);
-          case HLN_DOCUMENT_COMPLETE: 
-
-                                      break; //return OnDocumentComplete();
-
-          case HLN_ATTACH_BEHAVIOR:   break;//htmlayout::window::OnAttachBehavior((LPNMHL_ATTACH_BEHAVIOR)lParam );break;
-      }
-      return 0;
-  }  
+      // return 0;
+  /* }  */ 
 
 

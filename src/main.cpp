@@ -1,8 +1,8 @@
 #include "debug.h"
-#include "htmlayout_queue.h"
-#include "behavior_accesskeys.cpp"
-#include "behavior_tests.cpp"
-#include "sql.hpp"
+//#include "htmlayout_queue.h"
+//#include "behavior_accesskeys.cpp"
+//#include "behavior_tests.cpp"
+//#include "sql.hpp"
 HINSTANCE hInst;
 htmlayout::window* pwnd;
 //using namespace std;
@@ -42,12 +42,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
   // Main message loop:
   while (GetMessageW(&msg, NULL, 0, 0)) 
   {
-    if(msg.message==WM_HOTKEY)
-    {//处理热键的消息
-        HotKeyProc(msg.wParam);
-    }
+    /* if(msg.message==WM_HOTKEY) */
+    // {//处理热键的消息
+        // HotKeyProc(msg.wParam);
+    /* } */
     // execute asynchronous tasks in GUI thread.
-    htmlayout::queue::execute();
+    //htmlayout::queue::execute();
 
     if (!TranslateAcceleratorW(msg.hwnd, hAccelTable, &msg)) 
     {
@@ -86,8 +86,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    //用作全局变量pwnd
    pwnd = htmlayout::window::create( x, y, clientWidth, clientHeight, L"Hello world!" );
    
-   RegisterHotKey(pwnd->hwnd,HOTKEY_ESC,0,VK_ESCAPE); //注册快捷键
-   RegisterHotKey(NULL,HOTKEY_SHOW,MOD_SHIFT,VK_ESCAPE); //注册快捷键
+   /* RegisterHotKey(pwnd->hwnd,HOTKEY_ESC,0,VK_ESCAPE); //注册快捷键 */
+   /* RegisterHotKey(NULL,HOTKEY_SHOW,MOD_SHIFT,VK_ESCAPE); //注册快捷键 */
 
    //hWnd = CreateWindowEx(WS_EX_APPWINDOW, szWindowClass, szWindowClass, WS_POPUP | WS_SYSMENU | WS_CLIPCHILDREN | WS_VISIBLE,
    //   0, 0, 300, 300, NULL, NULL, hInstance, NULL);
@@ -103,20 +103,20 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
-void HotKeyProc(WPARAM wparam)
-{
-    switch(wparam)
-    {
-        case HOTKEY_SHOW:{
-            ::ShowWindow(pwnd->hwnd,SW_RESTORE);
-            RegisterHotKey(pwnd->hwnd,HOTKEY_ESC,0,VK_ESCAPE);
-            break;
-        }
-        case HOTKEY_ESC : {
-            ::ShowWindow(pwnd->hwnd,SW_MINIMIZE);
-            UnregisterHotKey(pwnd->hwnd, HOTKEY_ESC); //释放hotkey使其他程序能够使用hotkey
-            PostQuitMessage(0);
-            break;
-        }
-    }    
-}
+/* void HotKeyProc(WPARAM wparam) */
+// {
+    // switch(wparam)
+    // {
+        // case HOTKEY_SHOW:{
+            // ::ShowWindow(pwnd->hwnd,SW_RESTORE);
+            // RegisterHotKey(pwnd->hwnd,HOTKEY_ESC,0,VK_ESCAPE);
+            // break;
+        // }
+        // case HOTKEY_ESC : {
+            // ::ShowWindow(pwnd->hwnd,SW_MINIMIZE);
+            // UnregisterHotKey(pwnd->hwnd, HOTKEY_ESC); //释放hotkey使其他程序能够使用hotkey
+            // PostQuitMessage(0);
+            // break;
+        // }
+    // }    
+/* } */

@@ -36,14 +36,15 @@
 
     html 
 	{ 
-		behavior:accesskeys tests;
-		font:10pt Verdana; 
+		//behavior:accesskeys tests;
+		//font:10pt Verdana; 
 		overflow:hidden;
-		background-color:transparent;
+		background:#FFF;
+		//background-color:transparent;
 		//background-color:#ccc;
-		background-image:url(back1.png);
-		background-repeat:expand;
-		background-position:15 15 15 15;
+		//background-image:url(back1.png);
+		//background-repeat:expand;
+		//background-position:15 15 15 15;
 	}
 	body 
 	{ 
@@ -260,17 +261,10 @@
       height:*;
       overflow:auto;
     }
-    
-    div.list > div { margin:4px }
-    
-    div.list:focus
-    {
-      border-color:red;
-    }
-    
+        
     div#second.list 
     {
-      overflow:auto scroll-manner( page-animation:true, step-animation:false, step:auto, wheel-animation:false );
+      overflow:auto scroll-manner( page-animation:true, step-animation:true, step:20, wheel-animation:false );
     }
 	
 /* style block defining horizontal scrollbar */
